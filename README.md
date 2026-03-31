@@ -43,3 +43,11 @@ file = ".env"
 ```
 sudo sysctl fs.inotify.max_user_instances=512
 ```
+
+### Run docker services:
+
+inside the `root` folder:
+
+```
+docker compose up -d
+```
