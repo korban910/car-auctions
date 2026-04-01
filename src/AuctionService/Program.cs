@@ -1,10 +1,13 @@
+using AuctionService.Common.Seeds;
 using AuctionService.Context;
+using AuctionService.Mapping;
 using Scalar.AspNetCore; 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddAuctionDbContext();
+builder.Services.AddMapping();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -21,5 +24,14 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+try
+{
+    DbInitializer.InitDb(app);
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex);
+}
 
 app.Run();

@@ -12,7 +12,7 @@ public class Auction
     public int? CurrentHighBid { get; set; }
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
-    public DateTimeOffset AuctionEndedAt { get; set; }
+    public DateTimeOffset AuctionEnd { get; set; }
     public Status Status { get; set; } = Status.Unknown;
     public Item Item { get; set; }
 }

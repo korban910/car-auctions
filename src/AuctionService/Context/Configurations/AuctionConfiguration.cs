@@ -32,7 +32,7 @@ public class AuctionConfiguration : IEntityTypeConfiguration<Auction>
         
         builder.Property(a => a.UpdatedAt);
         
-        builder.Property(a => a.AuctionEndedAt);
+        builder.Property(a => a.AuctionEnd);
         
         builder.Property(a => a.Status)
             .HasConversion(

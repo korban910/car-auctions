@@ -28,7 +28,7 @@ namespace AuctionService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset>("AuctionEndedAt")
+                    b.Property<DateTimeOffset>("AuctionEnd")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("CreatedAt")

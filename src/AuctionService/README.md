@@ -32,6 +32,7 @@ inside the `AuctionService` folder:
 ```
 dotnet ef migrations add "InitialCreate" -o Migrations
 dotnet ef database update
+dotnet ef database drop
 ```
 
 ### Common Error

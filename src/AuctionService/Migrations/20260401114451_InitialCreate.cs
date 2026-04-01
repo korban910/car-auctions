@@ -23,7 +23,7 @@ namespace AuctionService.Migrations
                     CurrentHighBid = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    AuctionEndedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    AuctionEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
