@@ -12,6 +12,7 @@ dotnet new gitignore
 ### Microservices
 
 [Auction Service Details](src/AuctionService/README.md)
+[Search Service Details](src/SearchService/README.md)
 
 ### Add Projects into Solution
 
@@ -19,6 +20,7 @@ inside the `root` folder:
 
 ```
 dotnet sln add src/AuctionService
+dotnet sln add src/SearchService
 ```
 
 ### Mise (Optional but recommended)

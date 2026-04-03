@@ -1,4 +1,4 @@
-# AuctionService
+# SearchService
 
 [← Back to Home](../../README.md)
 
@@ -7,34 +7,33 @@
 inside the `root` folder of the `car-auction` project:
 
 ```
-dotnet new webapi -o src/AuctionService -controllers
+dotnet new webapi -o src/SearchService -controllers
 ```
 
 ### Packages
 
-inside the `AuctionService`:
+inside the `SearchSerivce`:
 
 ```
 dotnet add package Scalar.AspNetCore
 dotnet add package Ardalis.SmartEnum
-dotnet add package Microsoft.EntityFrameworkCore.Design
-dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package Mongodb.Entities
 dotnet add package AutoMapper
 ```
 
 ### Run the project
 
-inside the `AuctionService` folder:
+inside the `SearchService` folder:
 
 ```
 dotnet watch
 ```
 
-open the [link](http://localhost:7001/scalar/v1).
+open the [link](http://localhost:7002/scalar/v1).
 
 ### Migrations
 
-inside the `AuctionService` folder:
+inside the `SearchService` folder:
 
 ```
 dotnet ef migrations add "InitialCreate" -o Migrations
