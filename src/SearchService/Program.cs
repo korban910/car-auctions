@@ -1,4 +1,5 @@
 using Scalar.AspNetCore;
+using SearchService.Common.Seeds;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,5 +21,14 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+try
+{
+    await DbInitializer.InitDb(app);
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex);
+}
 
 app.Run();
