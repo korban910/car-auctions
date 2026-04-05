@@ -1,11 +1,15 @@
 using Scalar.AspNetCore;
 using SearchService.Common.Seeds;
+using SearchService.Common.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services
+    .AddHttpClient<AuctionServiceCHttpClient>()
+    .AddPolicyHandler(AuctionServiceCHttpClient.GetPolicy());
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -22,13 +26,16 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-try
+app.Lifetime.ApplicationStarted.Register(async void () =>
 {
-    await DbInitializer.InitDb(app);
-}
-catch (Exception ex)
-{
-    Console.WriteLine(ex);
-}
+    try
+    {
+        await app.InitDb();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex);
+    }
+});
 
 app.Run();

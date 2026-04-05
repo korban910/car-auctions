@@ -19,6 +19,7 @@ dotnet add package Scalar.AspNetCore
 dotnet add package Ardalis.SmartEnum
 dotnet add package Mongodb.Entities
 dotnet add package AutoMapper
+dotnet add package Microsoft.Extensions.Http.Polly
 ```
 
 ### Run the project
@@ -30,16 +31,6 @@ dotnet watch
 ```
 
 open the [link](http://localhost:7002/scalar/v1).
-
-### Migrations
-
-inside the `SearchService` folder:
-
-```
-dotnet ef migrations add "InitialCreate" -o Migrations
-dotnet ef database update
-dotnet ef database drop
-```
 
 ### Common Error
 

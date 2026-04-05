@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Entities;
+using SearchService.Common.Helpers;
 using SearchService.Entities;
 
 namespace SearchService.Controllers;
@@ -9,26 +10,38 @@ namespace SearchService.Controllers;
 public class SearchController : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<List<Auction>>> SearchItems(
-        string? searchTerm,
-        int pageNumber = 1,
-        int pageSize = 4)
+    public async Task<ActionResult<List<Auction>>> SearchItems([FromQuery] SearchParams searchParams)
     {
         // DB.Find<Auction> <-- without pagination
-        var query = DB.PagedSearch<Auction>();
+        var query = DB.PagedSearch<Auction, Auction>();
 
-        query.Sort(x => x.Ascending(a => a.Item.Make));
+        if (!string.IsNullOrWhiteSpace(searchParams.SearchTerm))
+            query.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
 
-        if (!string.IsNullOrWhiteSpace(searchTerm))
+        query = searchParams.OrderBy switch
         {
-            query.Match(Search.Full, searchTerm).SortByTextScore();
-        }
-        
-        query.PageSize(pageNumber);
-        query.PageSize(pageSize);
+            "make" => query.Sort(x => x.Ascending(a => a.Item.Make)),
+            "new" => query.Sort(x => x.Descending(a => a.CreatedAt)),
+            _ => query.Sort(x => x.Ascending(a => a.AuctionEnd))
+        };
+
+        query = searchParams.FilterBy switch
+        {
+            "finished" => query.Match(x => x.AuctionEnd < DateTimeOffset.UtcNow),
+            "endingSoon" => query.Match(x => x.AuctionEnd < DateTimeOffset.UtcNow.AddHours(6)
+                                             && x.AuctionEnd > DateTimeOffset.UtcNow),
+            _ => query.Match(x => x.AuctionEnd > DateTimeOffset.UtcNow)
+        };
+
+        if (!string.IsNullOrWhiteSpace(searchParams.Seller)) query.Match(x => x.Seller == searchParams.Seller);
+
+        if (!string.IsNullOrWhiteSpace(searchParams.Winner)) query.Match(x => x.Winner == searchParams.Winner);
+
+        query.PageNumber(searchParams.PageNumber);
+        query.PageSize(searchParams.PageSize);
 
         var result = await query.ExecuteAsync();
-        
+
         return Ok(new
         {
             results = result.Results,
