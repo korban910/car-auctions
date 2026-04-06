@@ -1,4 +1,4 @@
-# SearchService
+# Contracts
 
 [← Back to Home](../../README.md)
 
@@ -21,7 +21,6 @@ dotnet add package Mongodb.Entities
 dotnet add package AutoMapper
 dotnet add package Microsoft.Extensions.Http.Polly
 dotnet add package MassTransit.RabbitMQ
-dotnet add reference ../src/Contracts
 ```
 
 ### Run the project

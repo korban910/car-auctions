@@ -1,3 +1,4 @@
+using MassTransit;
 using Scalar.AspNetCore;
 using SearchService.Common.Seeds;
 using SearchService.Common.Services;
@@ -10,6 +11,15 @@ builder.Services.AddControllers();
 builder.Services
     .AddHttpClient<AuctionServiceCHttpClient>()
     .AddPolicyHandler(AuctionServiceCHttpClient.GetPolicy());
+
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.ConfigureEndpoints(ctx);
+    });
+});
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

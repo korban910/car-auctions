@@ -20,6 +20,8 @@ dotnet add package Ardalis.SmartEnum
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
 dotnet add package AutoMapper
+dotnet add package MassTransit.RabbitMQ
+dotnet add reference ../src/Contracts
 ```
 
 ### Run the project
