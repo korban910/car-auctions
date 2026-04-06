@@ -8,6 +8,8 @@ inside the `root` folder:
 dotnet new sln
 dotnet new gitignore
 ```
+### ClassLib
+[Contacts](src/Contracts/README.md)
 
 ### Microservices
 
@@ -21,6 +23,7 @@ inside the `root` folder:
 ```
 dotnet sln add src/AuctionService
 dotnet sln add src/SearchService
+dotnet sln add src/Contracts
 ```
 
 ### Mise (Optional but recommended)
