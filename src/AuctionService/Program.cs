@@ -1,7 +1,6 @@
 using AuctionService.Common.Seeds;
 using AuctionService.Context;
 using AuctionService.Mapping;
-using MassTransit;
 using Scalar.AspNetCore; 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,14 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddAuctionDbContext();
 builder.Services.AddMapping();
-
-builder.Services.AddMassTransit(config =>
-{
-    config.UsingRabbitMq((ctx, cfg) =>
-    {
-        cfg.ConfigureEndpoints(ctx);
-    });
-});
+builder.Services.AddTransit();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -37,7 +29,7 @@ app.MapControllers();
 
 try
 {
-    DbInitializer.InitDb(app);
+    app.InitDb();
 }
 catch (Exception ex)
 {

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuctionService.Common.Seeds;
 
-public class DbInitializer
+public static class DbInitializer
 {
-    public static void InitDb(WebApplication app)
+    public static void InitDb(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         

@@ -56,3 +56,10 @@ inside the `root` folder:
 ```
 docker compose up -d
 ```
+
+for removing the containers and clean up volumes: 
+```
+docker compose down 
+docker volume ls 
+docker volume rm [volume_name]
+```
