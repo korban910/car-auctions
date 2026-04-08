@@ -21,6 +21,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
 dotnet add package AutoMapper
 dotnet add package MassTransit.RabbitMQ
+dotnet add package MassTransit.EntityFrameworkCore
 dotnet add reference ../src/Contracts
 ```
 

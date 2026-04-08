@@ -21,7 +21,7 @@ public static class DbInitializer
         var count = await DB.CountAsync<Auction>();
 
         using var scope = app.Services.CreateScope();
-        var httpClient = scope.ServiceProvider.GetRequiredService<AuctionServiceCHttpClient>();
+        var httpClient = scope.ServiceProvider.GetRequiredService<AuctionServiceHttpClient>();
 
         var items = await httpClient.GetItemsForSearchDb();
 

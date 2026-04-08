@@ -10,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services
-    .AddHttpClient<AuctionServiceCHttpClient>()
-    .AddPolicyHandler(AuctionServiceCHttpClient.GetPolicy());
+    .AddHttpClient<AuctionServiceHttpClient>()
+    .AddPolicyHandler(AuctionServiceHttpClient.GetPolicy());
 
 builder.Services.AddMapper();
 

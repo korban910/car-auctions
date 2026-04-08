@@ -6,7 +6,7 @@ using SearchService.Entities;
 
 namespace SearchService.Common.Services;
 
-public class AuctionServiceCHttpClient(HttpClient httpClient)
+public class AuctionServiceHttpClient(HttpClient httpClient)
 {
     public async Task<List<Auction>> GetItemsForSearchDb()
     {

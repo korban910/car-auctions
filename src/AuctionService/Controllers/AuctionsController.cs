@@ -56,19 +56,16 @@ public class AuctionsController(
         auction.Seller = "Test";
         
         await context.AddAsync(auction);
-
-        var result = await context.SaveChangesAsync() > 0;
-
-        if (!result)
-        {
-           return BadRequest("Could not create auction");
-        }
         
         var auctionDto= mapper.Map<AuctionDto>(auction);
         var auctionCreated = mapper.Map<AuctionCreated>(auctionDto);
         await publishEndpoint.Publish(auctionCreated);
 
-        return CreatedAtAction(nameof(GetAuctionById), new { id = auction.Id }, auctionDto);
+        var result = await context.SaveChangesAsync() > 0;
+
+        return result ?
+            CreatedAtAction(nameof(GetAuctionById), new { id = auction.Id }, auctionDto) :
+            BadRequest("Could not create auction");
     }
 
     [HttpPut("{id}")]

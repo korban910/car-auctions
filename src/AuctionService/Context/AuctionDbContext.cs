@@ -1,4 +1,5 @@
 using AuctionService.Entities;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuctionService.Context;
@@ -11,6 +12,11 @@ public class AuctionDbContext(DbContextOptions<AuctionDbContext> options) : DbCo
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.AddInboxStateEntity();
+        modelBuilder.AddOutboxMessageEntity();
+        modelBuilder.AddOutboxStateEntity();
+        
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
 }
