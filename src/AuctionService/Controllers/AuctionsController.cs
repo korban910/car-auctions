@@ -83,6 +83,10 @@ public class AuctionsController(
         auction.Item.Color = updateAuctionDto.Color ?? auction.Item.Color;
         auction.Item.Mileage = updateAuctionDto.Mileage ?? auction.Item.Mileage;
         auction.Item.Year = updateAuctionDto.Year ?? auction.Item.Year;
+        
+        var auctionDto = mapper.Map<AuctionDto>(auction);
+        var auctionUpdated = mapper.Map<AuctionUpdated>(auctionDto);
+        await publishEndpoint.Publish(auctionUpdated);
 
         var result = await context.SaveChangesAsync() > 0;
         
@@ -100,6 +104,8 @@ public class AuctionsController(
         }
         
         // TODO: check seller == username
+        var auctionDeleted = mapper.Map<AuctionDeleted>(id);
+        await publishEndpoint.Publish(auctionDeleted);
         context.Auctions.Remove(auction);
 
         var result = await context.SaveChangesAsync() > 0;

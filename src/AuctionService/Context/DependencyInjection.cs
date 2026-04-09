@@ -1,3 +1,4 @@
+using AuctionService.Consumers;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ public static class DependencyInjection
         });
     }
 
-    public static void AddTransit(this IServiceCollection services)
+    public static void AddMassTransitSerivces(this IServiceCollection services)
     {
         services.AddMassTransit(config =>
         {
@@ -23,6 +24,9 @@ public static class DependencyInjection
                 o.UsePostgres();
                 o.UseBusOutbox();
             });
+            
+            config.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
+            config.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
     
             config.UsingRabbitMq((ctx, cfg) =>
             {
