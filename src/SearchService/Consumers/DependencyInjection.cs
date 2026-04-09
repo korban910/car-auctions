@@ -4,7 +4,7 @@ namespace SearchService.Consumers;
 
 public static class DependencyInjection
 {
-    public static void AddTransientServices(this IServiceCollection services)
+    public static void AddMassTransientServices(this IServiceCollection services)
     {
         services.AddMassTransit(config =>
         {
@@ -18,6 +18,18 @@ public static class DependencyInjection
                 {
                     e.UseMessageRetry(r => r.Interval(5, 5));
                     e.ConfigureConsumer<AuctionCreatedConsumer>(ctx);
+                });
+                
+                cfg.ReceiveEndpoint("search-auction-updated", e =>
+                {
+                    e.UseMessageRetry(r => r.Interval(5, 5));
+                    e.ConfigureConsumer<AuctionUpdatedConsumer>(ctx);
+                });
+                
+                cfg.ReceiveEndpoint("search-auction-deleted", e =>
+                {
+                    e.UseMessageRetry(r => r.Interval(5, 5));
+                    e.ConfigureConsumer<AuctionDeletedConsumer>(ctx);
                 });
                 
                 cfg.ConfigureEndpoints(ctx);

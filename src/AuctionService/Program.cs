@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddAuctionDbContext();
 builder.Services.AddMapping();
-builder.Services.AddTransit();
+builder.Services.AddMassTransitSerivces();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

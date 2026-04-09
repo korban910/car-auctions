@@ -15,7 +15,7 @@ builder.Services
 
 builder.Services.AddMapper();
 
-builder.Services.AddTransientServices();
+builder.Services.AddMassTransientServices();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
