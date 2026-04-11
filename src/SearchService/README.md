@@ -4,7 +4,7 @@
 
 ### Create Project from Scratch
 
-inside the `root` folder of the `car-auction` project:
+inside the `root` folder of the `car-auctions` project:
 
 ```
 dotnet new webapi -o src/SearchService -controllers

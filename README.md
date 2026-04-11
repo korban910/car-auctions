@@ -7,6 +7,7 @@ inside the `root` folder:
 ```
 dotnet new sln
 dotnet new gitignore
+dotnet new install Duende.Templates
 ```
 ### ClassLib
 [Contacts](src/Contracts/README.md)
@@ -14,7 +15,10 @@ dotnet new gitignore
 ### Microservices
 
 [Auction Service Details](src/AuctionService/README.md)
+
 [Search Service Details](src/SearchService/README.md)
+
+[Identity Service Details](src/IdentityService/README.md)
 
 ### Add Projects into Solution
 
@@ -24,6 +28,7 @@ inside the `root` folder:
 dotnet sln add src/AuctionService
 dotnet sln add src/SearchService
 dotnet sln add src/Contracts
+dotnet sln add src/IdentityService
 ```
 
 ### Mise (Optional but recommended)
