@@ -28,6 +28,14 @@ dotnet watch
 
 open the [link](http://localhost:7002/scalar/v1).
 
+### Migrations
+inside the `IdentityService`, run the following commands:
+
+```
+dotnet ef migrations add InitialCreate -o Data/Migrations
+dotnet ef database update
+```
+
 ### Common Error
 
 If your program does not run or gives some unreasonable errors:
