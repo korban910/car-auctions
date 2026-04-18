@@ -22,6 +22,7 @@ dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
 dotnet add package AutoMapper
 dotnet add package MassTransit.RabbitMQ
 dotnet add package MassTransit.EntityFrameworkCore
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 dotnet add reference ../src/Contracts
 ```
 
