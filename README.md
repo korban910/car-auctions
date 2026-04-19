@@ -20,6 +20,8 @@ dotnet new install Duende.Templates
 
 [Identity Service Details](src/IdentityService/README.md)
 
+[Gateway Service Details](src/GatewayService/README.md)
+
 ### Add Projects into Solution
 
 inside the `root` folder:
@@ -29,6 +31,7 @@ dotnet sln add src/AuctionService
 dotnet sln add src/SearchService
 dotnet sln add src/Contracts
 dotnet sln add src/IdentityService
+dotnet sln add src/GatewayService
 ```
 
 ### Mise (Optional but recommended)
