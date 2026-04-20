@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "43ba24b2-f340-49bc-b8b7-19ee0915acfc",
 		"name": "Carsties",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25555825",
 		"_collection_link": "https://restless-astronaut-316926.postman.co/workspace/CarAuctionsWorkspace~a85cf97d-63ce-4f24-8f57-6607be93a240/collection/25555825-43ba24b2-f340-49bc-b8b7-19ee0915acfc?action=share&source=collection_link&creator=25555825"
 	},
@@ -41,7 +41,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{auctionApi}}/api/auctions"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -72,7 +81,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{auctionApi}}/api/auctions/dc1e4071-d19d-459b-b848-b5c3cd3d151f"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions/dc1e4071-d19d-459b-b848-b5c3cd3d151f",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions",
+								"dc1e4071-d19d-459b-b848-b5c3cd3d151f"
+							]
+						}
 					},
 					"response": []
 				},
@@ -133,7 +152,16 @@
 								}
 							}
 						},
-						"url": "{{auctionApi}}/api/auctions"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -164,7 +192,17 @@
 								}
 							}
 						},
-						"url": "{{auctionApi}}/api/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions/{{createdItemId}}",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -194,7 +232,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{auctionApi}}/api/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions/{{createdItemId}}",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -216,7 +264,17 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "{{auctionApi}}/api/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions/{{createdItemId}}",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -238,7 +296,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{auctionApi}}/api/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions/{{createdItemId}}",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				}
@@ -279,7 +347,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{searchApi}}/api/search"
+						"url": {
+							"raw": "{{searchApi}}/api/search",
+							"host": [
+								"{{searchApi}}"
+							],
+							"path": [
+								"api",
+								"search"
+							]
+						}
 					},
 					"response": []
 				},
@@ -367,7 +444,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{searchApi}}/api/search"
+						"url": {
+							"raw": "{{searchApi}}/api/search",
+							"host": [
+								"{{searchApi}}"
+							],
+							"path": [
+								"api",
+								"search"
+							]
+						}
 					},
 					"response": []
 				},
@@ -539,7 +625,16 @@
 										}
 									}
 								},
-								"url": "{{auctionApi}}/api/auctions"
+								"url": {
+									"raw": "{{auctionApi}}/api/auctions",
+									"host": [
+										"{{auctionApi}}"
+									],
+									"path": [
+										"api",
+										"auctions"
+									]
+								}
 							},
 							"response": []
 						},
@@ -627,7 +722,17 @@
 										}
 									}
 								},
-								"url": "{{auctionApi}}/api/auctions/{{createdItemId}}"
+								"url": {
+									"raw": "{{auctionApi}}/api/auctions/{{createdItemId}}",
+									"host": [
+										"{{auctionApi}}"
+									],
+									"path": [
+										"api",
+										"auctions",
+										"{{createdItemId}}"
+									]
+								}
 							},
 							"response": []
 						},
@@ -705,7 +810,17 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": "{{auctionApi}}/api/auctions/{{createdItemId}}"
+								"url": {
+									"raw": "{{auctionApi}}/api/auctions/{{createdItemId}}",
+									"host": [
+										"{{auctionApi}}"
+									],
+									"path": [
+										"api",
+										"auctions",
+										"{{createdItemId}}"
+									]
+								}
 							},
 							"response": []
 						},
@@ -822,7 +937,16 @@
 								}
 							}
 						},
-						"url": "{{auctionApi}}/api/auctions"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -932,7 +1056,16 @@
 								}
 							]
 						},
-						"url": "{{identitySvc}}/connect/token"
+						"url": {
+							"raw": "{{identitySvc}}/connect/token",
+							"host": [
+								"{{identitySvc}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -989,7 +1122,16 @@
 								}
 							]
 						},
-						"url": "{{identitySvc}}/connect/token"
+						"url": {
+							"raw": "{{identitySvc}}/connect/token",
+							"host": [
+								"{{identitySvc}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1046,7 +1188,16 @@
 								}
 							]
 						},
-						"url": "{{identitySvc}}/connect/token"
+						"url": {
+							"raw": "{{identitySvc}}/connect/token",
+							"host": [
+								"{{identitySvc}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1055,13 +1206,28 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{BobToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{BobToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:5000/connect/userinfo"
+						"url": {
+							"raw": "http://localhost:5000/connect/userinfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"connect",
+								"userinfo"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1107,7 +1273,16 @@
 								}
 							}
 						},
-						"url": "{{auctionApi}}/api/auctions"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1150,9 +1325,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{AliceToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AliceToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -1165,7 +1344,16 @@
 								}
 							}
 						},
-						"url": "{{auctionApi}}/api/auctions"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1187,9 +1375,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{BobToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{BobToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
@@ -1202,7 +1394,17 @@
 								}
 							}
 						},
-						"url": "{{auctionApi}}/api/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions/{{createdItemId}}",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1224,9 +1426,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{AliceToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AliceToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
@@ -1239,7 +1445,17 @@
 								}
 							}
 						},
-						"url": "{{auctionApi}}/api/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions/{{createdItemId}}",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1261,13 +1477,27 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{AliceToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AliceToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "DELETE",
 						"header": [],
-						"url": "{{auctionApi}}/api/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions/{{createdItemId}}",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				}
@@ -1329,7 +1559,16 @@
 								}
 							]
 						},
-						"url": "{{identitySvc}}/connect/token"
+						"url": {
+							"raw": "{{identitySvc}}/connect/token",
+							"host": [
+								"{{identitySvc}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1386,7 +1625,16 @@
 								}
 							]
 						},
-						"url": "{{identitySvc}}/connect/token"
+						"url": {
+							"raw": "{{identitySvc}}/connect/token",
+							"host": [
+								"{{identitySvc}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1416,7 +1664,15 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{gateway}}/search"
+						"url": {
+							"raw": "{{gateway}}/search",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"search"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1434,7 +1690,7 @@
 									"})",
 									"",
 									"pm.test('First item is Ford', function() {",
-									"    pm.expect(jsonData.results[0].make).to.eq('Ford');",
+									"    pm.expect(jsonData.results[0].item.make).to.eq('Ford');",
 									"})",
 									"",
 									"pm.test('Result includes results, pagecount and totalcount properties', function() {",
@@ -1443,7 +1699,9 @@
 									"    pm.expect(jsonData).to.haveOwnProperty('totalCount');",
 									"})"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1507,9 +1765,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{AliceToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AliceToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -1522,7 +1784,15 @@
 								}
 							}
 						},
-						"url": "{{gateway}}/auctions"
+						"url": {
+							"raw": "{{gateway}}/auctions",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"auctions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1540,11 +1810,13 @@
 									"})",
 									"",
 									"pm.test('Item has correct make and model', function() {",
-									"    pm.expect(jsonData.make).to.eq('Ford');",
-									"    pm.expect(jsonData.model).to.eq('Escort');",
+									"    pm.expect(jsonData.item.make).to.eq('Ford');",
+									"    pm.expect(jsonData.item.model).to.eq('Escort');",
 									"})"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -1553,14 +1825,25 @@
 								"exec": [
 									"setTimeout(function(){}, 1000);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{gateway}}/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{gateway}}/auctions/{{createdItemId}}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1582,9 +1865,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{BobToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{BobToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
@@ -1597,7 +1884,16 @@
 								}
 							}
 						},
-						"url": "{{gateway}}/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{gateway}}/auctions/{{createdItemId}}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1619,9 +1915,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{AliceToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AliceToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
@@ -1634,7 +1934,16 @@
 								}
 							}
 						},
-						"url": "{{gateway}}/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{gateway}}/auctions/{{createdItemId}}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1672,7 +1981,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{gateway}}/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{gateway}}/auctions/{{createdItemId}}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1694,13 +2012,26 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{AliceToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AliceToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "DELETE",
 						"header": [],
-						"url": "{{gateway}}/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{gateway}}/auctions/{{createdItemId}}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1731,7 +2062,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{gateway}}/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{gateway}}/auctions/{{createdItemId}}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				}
@@ -1796,7 +2136,16 @@
 										}
 									]
 								},
-								"url": "{{identitySvc}}/connect/token"
+								"url": {
+									"raw": "{{identitySvc}}/connect/token",
+									"host": [
+										"{{identitySvc}}"
+									],
+									"path": [
+										"connect",
+										"token"
+									]
+								}
 							},
 							"response": []
 						},
@@ -1851,9 +2200,13 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": {
-										"token": "{{BobToken}}"
-									}
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{BobToken}}",
+											"type": "string"
+										}
+									]
 								},
 								"method": "POST",
 								"header": [],
@@ -1866,7 +2219,15 @@
 										}
 									}
 								},
-								"url": "{{gateway}}/auctions"
+								"url": {
+									"raw": "{{gateway}}/auctions",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"auctions"
+									]
+								}
 							},
 							"response": []
 						},
@@ -1940,9 +2301,13 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": {
-										"token": "{{BobToken}}"
-									}
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{BobToken}}",
+											"type": "string"
+										}
+									]
 								},
 								"method": "PUT",
 								"header": [],
@@ -1955,7 +2320,16 @@
 										}
 									}
 								},
-								"url": "{{gateway}}/auctions/{{createdItemId}}"
+								"url": {
+									"raw": "{{gateway}}/auctions/{{createdItemId}}",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"auctions",
+										"{{createdItemId}}"
+									]
+								}
 							},
 							"response": []
 						},
@@ -2028,13 +2402,26 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": {
-										"token": "{{BobToken}}"
-									}
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{BobToken}}",
+											"type": "string"
+										}
+									]
 								},
 								"method": "DELETE",
 								"header": [],
-								"url": "{{gateway}}/auctions/{{createdItemId}}"
+								"url": {
+									"raw": "{{gateway}}/auctions/{{createdItemId}}",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"auctions",
+										"{{createdItemId}}"
+									]
+								}
 							},
 							"response": []
 						},
@@ -2152,7 +2539,16 @@
 										}
 									]
 								},
-								"url": "{{identitySvc}}/connect/token"
+								"url": {
+									"raw": "{{identitySvc}}/connect/token",
+									"host": [
+										"{{identitySvc}}"
+									],
+									"path": [
+										"connect",
+										"token"
+									]
+								}
 							},
 							"response": []
 						},
@@ -2195,9 +2591,13 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": {
-										"token": "{{BobToken}}"
-									}
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{BobToken}}",
+											"type": "string"
+										}
+									]
 								},
 								"method": "POST",
 								"header": [],
@@ -2210,7 +2610,15 @@
 										}
 									}
 								},
-								"url": "{{gateway}}/auctions"
+								"url": {
+									"raw": "{{gateway}}/auctions",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"auctions"
+									]
+								}
 							},
 							"response": []
 						},
@@ -2267,7 +2675,16 @@
 										}
 									]
 								},
-								"url": "{{identitySvc}}/connect/token"
+								"url": {
+									"raw": "{{identitySvc}}/connect/token",
+									"host": [
+										"{{identitySvc}}"
+									],
+									"path": [
+										"connect",
+										"token"
+									]
+								}
 							},
 							"response": []
 						},
@@ -2276,9 +2693,13 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": {
-										"token": "{{AliceToken}}"
-									}
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AliceToken}}",
+											"type": "string"
+										}
+									]
 								},
 								"method": "POST",
 								"header": [],
@@ -2309,7 +2730,16 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{gateway}}/bids/{{createdItemId}}"
+								"url": {
+									"raw": "{{gateway}}/bids/{{createdItemId}}",
+									"host": [
+										"{{gateway}}"
+									],
+									"path": [
+										"bids",
+										"{{createdItemId}}"
+									]
+								}
 							},
 							"response": []
 						},
@@ -2318,9 +2748,13 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": {
-										"token": "{{BobToken}}"
-									}
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{BobToken}}",
+											"type": "string"
+										}
+									]
 								},
 								"method": "POST",
 								"header": [],
@@ -2401,7 +2835,16 @@
 								}
 							]
 						},
-						"url": "{{identitySvc}}/connect/token"
+						"url": {
+							"raw": "{{identitySvc}}/connect/token",
+							"host": [
+								"{{identitySvc}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -2446,9 +2889,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{BobToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{BobToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -2461,7 +2908,16 @@
 								}
 							}
 						},
-						"url": "{{auctionApi}}/api/auctions"
+						"url": {
+							"raw": "{{auctionApi}}/api/auctions",
+							"host": [
+								"{{auctionApi}}"
+							],
+							"path": [
+								"api",
+								"auctions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -2518,7 +2974,18 @@
 								}
 							]
 						},
-						"url": "http://localhost:5000/connect/token"
+						"url": {
+							"raw": "http://localhost:5000/connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"connect",
+								"token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -2575,7 +3042,16 @@
 								}
 							]
 						},
-						"url": "{{identitySvc}}/connect/token"
+						"url": {
+							"raw": "{{identitySvc}}/connect/token",
+							"host": [
+								"{{identitySvc}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -2584,9 +3060,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{AliceToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AliceToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -2618,9 +3098,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{TomToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TomToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -2652,7 +3136,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{bidSvc}}/api/bids/{{createdItemId}}"
+						"url": {
+							"raw": "{{bidSvc}}/api/bids/{{createdItemId}}",
+							"host": [
+								"{{bidSvc}}"
+							],
+							"path": [
+								"api",
+								"bids",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -2661,7 +3155,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{gateway}}/auctions/{{createdItemId}}"
+						"url": {
+							"raw": "{{gateway}}/auctions/{{createdItemId}}",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"auctions",
+								"{{createdItemId}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -2732,9 +3235,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{BobToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{BobToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -2747,7 +3254,15 @@
 								}
 							}
 						},
-						"url": "{{gateway}}/auctions"
+						"url": {
+							"raw": "{{gateway}}/auctions",
+							"host": [
+								"{{gateway}}"
+							],
+							"path": [
+								"auctions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -2787,9 +3302,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{AliceToken}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AliceToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
