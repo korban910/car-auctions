@@ -51,7 +51,7 @@ public static class DependencyInjection
             {
                 RouteId = "auctionWrite",
                 ClusterId = Environment.GetEnvironmentVariable("AUCTION_CLUSTER_ID"),
-                AuthorizationPolicy = "default",
+                AuthorizationPolicy = "Default",
                 Match = new RouteMatch
                 {
                     Path= "/auctions/{**catch-all}",
