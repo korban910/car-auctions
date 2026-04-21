@@ -30,6 +30,11 @@ public static class DependencyInjection
     
             config.UsingRabbitMq((ctx, cfg) =>
             {
+                cfg.Host(Environment.GetEnvironmentVariable("RABBITMQ_HOST"), "/", host =>
+                {
+                    host.Username(Environment.GetEnvironmentVariable("RABBITMQ_USER")!);
+                    host.Password(Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD")!);
+                });
                 cfg.ConfigureEndpoints(ctx);
             });
         });

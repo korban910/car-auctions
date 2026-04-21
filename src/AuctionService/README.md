@@ -55,3 +55,10 @@ dotnet clean
 rm -rf bin/ obj/
 dotnet restore
 ```
+
+### Docker
+inside the `AuctionService` folder:
+```
+docker build -f src/AuctionService/Dockerfile -t test-auction-service .
+docker run test-auction-service
+```
