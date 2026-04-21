@@ -65,6 +65,11 @@ inside the `root` folder:
 docker compose up -d
 ```
 
+or build each manually:
+```
+docker compose build auction-svc
+```
+
 for removing the containers and clean up volumes: 
 ```
 docker compose down 

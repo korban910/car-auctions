@@ -11,8 +11,8 @@ services:
   mongodb:
     image: mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=mongopw
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     ports:
       - "27017:27017"
     volumes:
@@ -23,7 +23,27 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-
+  
+  auction-svc:
+    image: korban910/auction-svc:latest
+    build:
+      context: .
+      dockerfile: src/AuctionService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - AUCTION_DATABASE=${DOCKER_AUCTION_DATABASE}
+      - IDENTITY_URL=${DOCKER_IDENTITY_URL}
+      - CLAIM_USER_NAME=${DOCKER_CLAIM_USER_NAME}
+    ports:
+      - "7001:80"
+    depends_on:
+      - postgres
+      - rabbitmq
+      
 volumes:
   pgdata:
   mongodata:
