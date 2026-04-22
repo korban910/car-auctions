@@ -30,9 +30,9 @@ services:
       context: .
       dockerfile: src/AuctionService/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
-      - RABBITMQ_HOST=rabbitmq
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+      - RABBITMQ_HOST=${RABBITMQ_HOST_NAME}
       - RABBITMQ_USER=${RABBITMQ_USER}
       - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
       - AUCTION_DATABASE=${DOCKER_AUCTION_DATABASE}
@@ -43,6 +43,54 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+  
+  search-svc:
+    image: korban910/search-svc:latest
+    build:
+      context: .
+      dockerfile: src/SearchService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+      - RABBITMQ_HOST=${RABBITMQ_HOST_NAME}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - SEARCH_DATABASE=${DOCKER_SEARCH_DATABASE}
+      - SEARCH_DATABASE_NAME=${SEARCH_DATABASE_NAME}
+      - IDENTITY_URL=${DOCKER_IDENTITY_URL}
+      - CLAIM_USER_NAME=${DOCKER_CLAIM_USER_NAME}
+      - AUCTION_URL=${DOCKER_AUCTION_URL}
+    ports:
+      - "7002:80"
+    depends_on:
+      - mongodb
+      - rabbitmq
+    
+  identity-svc:
+    image: korban910/identity-svc:latest
+    build:
+      context: .
+      dockerfile: src/IdentityService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+      - IDENTITY_DATABASE=${DOCKER_IDENTITY_DATABASE}
+      - APP_SCOPE=${APP_SCOPE}
+      - DISPLAY_NAME=${DISPLAY_NAME}
+      - POSTMAN_CLIENT_ID=${POSTMAN_CLIENT_ID}
+      - POSTMAN_CLIENT_NAME=${POSTMAN_CLIENT_NAME}
+      - OPEN_ID_SCOPE=${OPEN_ID_SCOPE}
+      - PROFILE_SCOPE=${PROFILE_SCOPE}
+      - POSTMAN_REDIRECTURI=${POSTMAN_REDIRECTURI}
+      - POSTMAN_SECRET=${POSTMAN_SECRET}
+      - NEXT_APP_ID=${NEXT_APP_ID}
+      - NEXT_CLIENT_NAME=${NEXT_CLIENT_NAME}
+      - NEXT_SECRET=${NEXT_SECRET}
+      - NEXT_REDIRECTURI=${NEXT_REDIRECTURI}
+    ports:
+      - "5000:80"
+    depends_on:
+      - postgres
       
 volumes:
   pgdata:

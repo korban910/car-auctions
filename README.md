@@ -68,6 +68,8 @@ docker compose up -d
 or build each manually:
 ```
 docker compose build auction-svc
+docker compose build search-svc
+docker compose build identity-svc
 ```
 
 for removing the containers and clean up volumes: 
