@@ -14,22 +14,16 @@ public static class DependencyInjection
             
             config.UsingRabbitMq((ctx, cfg) =>
             {
+                cfg.Host(Environment.GetEnvironmentVariable("RABBITMQ_HOST"), "/", host =>
+                {
+                    host.Username(Environment.GetEnvironmentVariable("RABBITMQ_USER")!);
+                    host.Password(Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD")!);
+                });
+                
                 cfg.ReceiveEndpoint("search-auction-created", e =>
                 {
                     e.UseMessageRetry(r => r.Interval(5, 5));
                     e.ConfigureConsumer<AuctionCreatedConsumer>(ctx);
-                });
-                
-                cfg.ReceiveEndpoint("search-auction-updated", e =>
-                {
-                    e.UseMessageRetry(r => r.Interval(5, 5));
-                    e.ConfigureConsumer<AuctionUpdatedConsumer>(ctx);
-                });
-                
-                cfg.ReceiveEndpoint("search-auction-deleted", e =>
-                {
-                    e.UseMessageRetry(r => r.Interval(5, 5));
-                    e.ConfigureConsumer<AuctionDeletedConsumer>(ctx);
                 });
                 
                 cfg.ConfigureEndpoints(ctx);
