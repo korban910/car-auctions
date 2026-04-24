@@ -7,6 +7,11 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   
   mongodb:
     image: mongo
@@ -17,12 +22,31 @@ services:
       - "27017:27017"
     volumes:
       - mongodata:/data/db
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mongosh",
+          "--quiet",
+          "127.0.0.1/test",
+          "--eval",
+          "'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
   
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq:4-management-alpine
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 5s
+      timeout: 5s
+      retries: 5
   
   auction-svc:
     image: korban910/auction-svc:latest
@@ -41,8 +65,10 @@ services:
     ports:
       - "7001:80"
     depends_on:
-      - postgres
-      - rabbitmq
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
   
   search-svc:
     image: korban910/search-svc:latest
@@ -63,8 +89,10 @@ services:
     ports:
       - "7002:80"
     depends_on:
-      - mongodb
-      - rabbitmq
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     
   identity-svc:
     image: korban910/identity-svc:latest
@@ -72,7 +100,7 @@ services:
       context: .
       dockerfile: src/IdentityService/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_DOCKER_ENVIRONMENT}
       - ASPNETCORE_URLS=${ASPNETCORE_URLS}
       - IDENTITY_DATABASE=${DOCKER_IDENTITY_DATABASE}
       - APP_SCOPE=${APP_SCOPE}
@@ -87,11 +115,32 @@ services:
       - NEXT_CLIENT_NAME=${NEXT_CLIENT_NAME}
       - NEXT_SECRET=${NEXT_SECRET}
       - NEXT_REDIRECTURI=${NEXT_REDIRECTURI}
+      - CLAIM_USER_NAME=${CLAIM_USER_NAME}
+      - ISSUER_URI=${IDENTITY_URL}
+      - ASPNETCORE_DOCKER_ENVIRONMENT=${ASPNETCORE_DOCKER_ENVIRONMENT}
     ports:
       - "5000:80"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
       
+  gateway-svc:
+    image: korban910/gateway-svc:latest
+    build:
+      context: .
+      dockerfile: src/GatewayService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_DOCKER_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+      - IDENTITY_URL=${DOCKER_IDENTITY_URL}
+      - CLAIM_USER_NAME=${CLAIM_USER_NAME}
+      - AUCTION_CLUSTER_ID=${AUCTION_CLUSTER_ID}
+      - SEARCH_CLUSTER_ID=${SEARCH_CLUSTER_ID}
+      - AUCTION_URL=${DOCKER_AUCTION_URL}
+      - SEARCH_URL=${DOCKER_SEARCH_URL}
+    ports:
+      - "6001:80"
+    
 volumes:
   pgdata:
   mongodata:
