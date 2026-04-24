@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "43ba24b2-f340-49bc-b8b7-19ee0915acfc",
-		"name": "Carsties",
+		"name": "Car-Auctions",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25555825",
 		"_collection_link": "https://restless-astronaut-316926.postman.co/workspace/CarAuctionsWorkspace~a85cf97d-63ce-4f24-8f57-6607be93a240/collection/25555825-43ba24b2-f340-49bc-b8b7-19ee0915acfc?action=share&source=collection_link&creator=25555825"

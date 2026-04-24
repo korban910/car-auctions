@@ -71,6 +71,12 @@ internal static class HostingExtensions
                 {
                     options.Diagnostics.ChunkSize = 1024 * 1024 * 10; // 10 MB
                 }
+                
+                if (builder.Environment.IsEnvironment(
+                        Environment.GetEnvironmentVariable("ASPNETCORE_DOCKER_ENVIRONMENT")!))
+                {
+                    options.IssuerUri = Environment.GetEnvironmentVariable("ISSUER_URI");
+                }
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)

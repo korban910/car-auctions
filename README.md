@@ -63,6 +63,7 @@ inside the `root` folder:
 
 ```
 docker compose up -d
+docker compose up --build -d
 ```
 
 or build each manually:
@@ -70,10 +71,12 @@ or build each manually:
 docker compose build auction-svc
 docker compose build search-svc
 docker compose build identity-svc
+docker compose build gateway-svc
 ```
 
 for removing the containers and clean up volumes: 
 ```
+docker compose down -v
 docker compose down 
 docker volume ls 
 docker volume rm [volume_name]
