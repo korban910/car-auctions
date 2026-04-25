@@ -15,4 +15,5 @@ public class Auction
     public DateTimeOffset AuctionEnd { get; set; }
     public Status Status { get; set; } = Status.Unknown;
     public Item Item { get; set; }
+    public bool HasReservePrice() => ReservePrice > 0;
 }
