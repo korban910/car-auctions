@@ -1,4 +1,5 @@
 using AuctionService.Consumers;
+using AuctionService.Context.Interfaces;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,7 @@ public static class DependencyInjection
         });
     }
 
-    public static void AddMassTransitSerivces(this IServiceCollection services)
+    public static void AddMassTransitServices(this IServiceCollection services)
     {
         services.AddMassTransit(config =>
         {
@@ -38,5 +39,10 @@ public static class DependencyInjection
                 cfg.ConfigureEndpoints(ctx);
             });
         });
+    }
+
+    public static void AddDependencyInjections(this IServiceCollection services)
+    {
+        services.AddScoped<IAuctionRepository, AuctionRepository>();
     }
 }

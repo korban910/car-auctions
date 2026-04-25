@@ -81,3 +81,7 @@ docker compose down
 docker volume ls 
 docker volume rm [volume_name]
 ```
+
+### Tests
+
+[Test Details](tests/README.md)
