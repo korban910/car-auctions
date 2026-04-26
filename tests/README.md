@@ -16,4 +16,5 @@ inside the `root` folder of `car-auctions`:
 
 ```
 dotnet build
+dotnet test
 ```
