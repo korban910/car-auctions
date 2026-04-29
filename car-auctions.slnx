@@ -7,6 +7,7 @@
     <Project Path="src/SearchService/SearchService.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/AuctionService.IntegrationTests/AuctionService.IntegrationTests.csproj" />
     <Project Path="tests/AuctionService.UnitTests/AuctionService.UnitTests.csproj" />
   </Folder>
 </Solution>

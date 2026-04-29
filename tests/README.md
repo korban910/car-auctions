@@ -8,7 +8,12 @@ inside the `root` folder of `car-actions`:
 
 ```
 dotnet new xunit -o tests/AuctionService.UnitTests
+dotnet new xunit -o tests/AuctionService.IntegrationTests
+```
+
+```
 dotnet sln add tests/AuctionService.UnitTests
+dotnet sln add tests/AuctionService.IntegrationTests
 ```
 
 ### Build and Run
