@@ -1,16 +1,15 @@
 using AuctionService.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Testcontainers.PostgreSql;
 
 namespace AuctionService.IntegrationTests.Util;
 
 public static class ServiceCollectionExtension
 {
-    public static void RemoveDbContext<T>(this IServiceCollection services) where T : DbContext
+    public static void RemoveDbContext(this IServiceCollection services)
     {
         var descriptor = services.SingleOrDefault(d => 
-            d.ServiceType == typeof(DbContextOptions<T>));
+            d.ServiceType == typeof(DbContextOptions<AuctionDbContext>));
 
         if (descriptor != null)
         {
@@ -18,7 +17,7 @@ public static class ServiceCollectionExtension
         }
     }
 
-    public static void EnsureCreated<T>(this IServiceCollection services) where T : DbContext
+    public static void EnsureCreated(this IServiceCollection services)
     {
         var sp = services.BuildServiceProvider();
         using var scope = sp.CreateScope();
@@ -26,6 +25,5 @@ public static class ServiceCollectionExtension
         var db = scopedServices.GetRequiredService<AuctionDbContext>();
             
         db.Database.Migrate();
-        DbHelper.InitDbForTests(db);
     }
 }

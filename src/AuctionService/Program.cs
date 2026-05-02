@@ -30,13 +30,15 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-try
+if (!app.Environment.IsEnvironment(Environment.GetEnvironmentVariable("INTEGRATION_TEST")!))
 {
-    app.InitDb();
+    try
+    {
+        app.InitDb();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex);
+    }
 }
-catch (Exception ex)
-{
-    Console.WriteLine(ex);
-}
-
 app.Run();
