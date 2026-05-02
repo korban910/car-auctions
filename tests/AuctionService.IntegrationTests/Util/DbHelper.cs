@@ -8,14 +8,16 @@ public static class DbHelper
 {
     public static void InitDbForTests(AuctionDbContext context)
     { 
-        context.AddRange(GetAuctionsForTest());
+        if (context.Auctions.Any()) return;
+        context.Auctions.AddRange(GetAuctionsForTest());
         context.SaveChanges();
     }
 
-    public static void ReinitDbForTests<T>(AuctionDbContext context)
+    public static void ReinitDbForTests(AuctionDbContext context)
     {
-        context.RemoveRange(context.Auctions);
+        context.Auctions.RemoveRange(context.Auctions);
         context.SaveChanges();
+        InitDbForTests(context);
     }
 
     private static List<Auction> GetAuctionsForTest()
@@ -28,6 +30,7 @@ public static class DbHelper
                 Status = Status.Live,
                 ReservePrice = 20000,
                 Seller = "bob",
+                UpdatedAt = DateTimeOffset.UtcNow,
                 AuctionEnd = DateTimeOffset.UtcNow.AddDays(10),
                 Item = new Item
                 {
@@ -47,6 +50,7 @@ public static class DbHelper
                 Status = Status.Live,
                 ReservePrice = 90000,
                 Seller = "alice",
+                UpdatedAt = DateTimeOffset.UtcNow,
                 AuctionEnd = DateTimeOffset.UtcNow.AddDays(60),
                 Item = new Item
                 {
@@ -65,6 +69,7 @@ public static class DbHelper
                 Id = Guid.Parse("bbab4d5a-8565-48b1-9450-5ac2a5c4a654"),
                 Status = Status.Live,
                 Seller = "bob",
+                UpdatedAt = DateTimeOffset.UtcNow,
                 AuctionEnd = DateTimeOffset.UtcNow.AddDays(4),
                 Item = new Item
                 {
@@ -84,6 +89,7 @@ public static class DbHelper
                 Status = Status.ReserveNotMet,
                 ReservePrice = 50000,
                 Seller = "tom",
+                UpdatedAt = DateTimeOffset.UtcNow,
                 AuctionEnd = DateTimeOffset.UtcNow.AddDays(-10),
                 Item = new Item
                 {

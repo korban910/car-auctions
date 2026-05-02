@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.PostgreSql;
 
@@ -21,9 +22,24 @@ public class CustomWebAppFactory: WebApplicationFactory<Program>, IAsyncLifetime
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        Environment.SetEnvironmentVariable("INTEGRATION_TEST", "IntegrationTest");
+        Environment.SetEnvironmentVariable("IDENTITY_URL", "http://localhost:5000");
+        Environment.SetEnvironmentVariable("CLAIM_USER_NAME", "username");
+        
+        builder.UseEnvironment(Environment.GetEnvironmentVariable("INTEGRATION_TEST"));
+        
+        builder.ConfigureAppConfiguration((context, config) =>
+        {
+            config.AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                { "IDENTITY_URL", Environment.GetEnvironmentVariable("IDENTITY_URL") },
+                { "CLAIM_USER_NAME", Environment.GetEnvironmentVariable("CLAIM_USER_NAME") }
+            });
+        });
+        
         builder.ConfigureTestServices(services =>
         {
-            services.RemoveDbContext<AuctionDbContext>();
+            services.RemoveDbContext();
 
             services.AddDbContext<AuctionDbContext>(options =>
             {
@@ -32,14 +48,11 @@ public class CustomWebAppFactory: WebApplicationFactory<Program>, IAsyncLifetime
 
             services.AddMassTransitTestHarness();
             
-            services.EnsureCreated<AuctionDbContext>();
+            services.EnsureCreated();
         });
         
         base.ConfigureWebHost(builder);
     }
 
-    public async Task DisposeAsync()
-    {
-        await _postgreSqlContainer.DisposeAsync().AsTask();
-    }
+    Task IAsyncLifetime.DisposeAsync() => _postgreSqlContainer.DisposeAsync().AsTask();
 }
