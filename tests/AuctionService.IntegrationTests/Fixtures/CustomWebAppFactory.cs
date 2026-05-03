@@ -8,12 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.PostgreSql;
+using WebMotions.Fake.Authentication.JwtBearer;
 
 namespace AuctionService.IntegrationTests.Fixtures;
 
 public class CustomWebAppFactory: WebApplicationFactory<Program>, IAsyncLifetime
 {
     private PostgreSqlContainer _postgreSqlContainer = new PostgreSqlBuilder().Build();
+
+    public CustomWebAppFactory()
+    {
+        DotNetEnv.Env.Load();
+    }
 
     public async Task InitializeAsync()
     {
@@ -22,20 +28,7 @@ public class CustomWebAppFactory: WebApplicationFactory<Program>, IAsyncLifetime
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        Environment.SetEnvironmentVariable("INTEGRATION_TEST", "IntegrationTest");
-        Environment.SetEnvironmentVariable("IDENTITY_URL", "http://localhost:5000");
-        Environment.SetEnvironmentVariable("CLAIM_USER_NAME", "username");
-        
-        builder.UseEnvironment(Environment.GetEnvironmentVariable("INTEGRATION_TEST"));
-        
-        builder.ConfigureAppConfiguration((context, config) =>
-        {
-            config.AddInMemoryCollection(new Dictionary<string, string?>
-            {
-                { "IDENTITY_URL", Environment.GetEnvironmentVariable("IDENTITY_URL") },
-                { "CLAIM_USER_NAME", Environment.GetEnvironmentVariable("CLAIM_USER_NAME") }
-            });
-        });
+        builder.UseEnvironment(Environment.GetEnvironmentVariable("INTEGRATION_TEST")!);
         
         builder.ConfigureTestServices(services =>
         {
@@ -49,6 +42,12 @@ public class CustomWebAppFactory: WebApplicationFactory<Program>, IAsyncLifetime
             services.AddMassTransitTestHarness();
             
             services.EnsureCreated();
+
+            services.AddAuthentication(FakeJwtBearerDefaults.AuthenticationScheme)
+                .AddFakeJwtBearer(opt =>
+                {
+                    opt.BearerValueType = FakeJwtBearerBearerValueType.Jwt;
+                });
         });
         
         base.ConfigureWebHost(builder);
