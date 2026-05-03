@@ -11,7 +11,7 @@ namespace AuctionService.IntegrationTests;
 public class AuctionControllerTests(CustomWebAppFactory factory) : IClassFixture<CustomWebAppFactory>, IAsyncLifetime
 {
     private readonly HttpClient _httpClient = factory.CreateClient();
-    private const string GT_ID = "155225c1-4448-4066-9886-6786536e05ea";
+    private const string SLK_ID = "155225c1-4448-4066-9886-6786536e05ea";
 
     [Fact]
     public async Task GetAuctions_ShouldReturn4Auctions()
@@ -31,7 +31,7 @@ public class AuctionControllerTests(CustomWebAppFactory factory) : IClassFixture
         // arrange
         
         // act
-        var response = await _httpClient.GetFromJsonAsync<AuctionDto>($"/api/auctions/{GT_ID}");
+        var response = await _httpClient.GetFromJsonAsync<AuctionDto>($"/api/auctions/{SLK_ID}");
         
         // assert
         Assert.Equal("SLK", response?.Item.Model);
@@ -61,7 +61,115 @@ public class AuctionControllerTests(CustomWebAppFactory factory) : IClassFixture
         Assert.Equal(HttpStatusCode.BadRequest, response?.StatusCode);
     }
 
-    public Task InitializeAsync()
+    [Fact]
+    public async Task CreateAuction_WithNoAuth_ShouldReturn401()
+    {
+        // arrange
+        var auction = GetAuctionForCreate();
+        
+        // act
+        var response = await _httpClient.PostAsJsonAsync("/api/auctions", auction);
+        
+        // assert
+        Assert.Equal(HttpStatusCode.Unauthorized, response?.StatusCode);
+    }
+    
+    [Fact]
+    public async Task CreateAuction_WithAuth_ShouldReturn201()
+    {
+        // arrange
+        var auction = GetAuctionForCreate();
+        _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser("bob"));
+        
+        // act
+        var response = await _httpClient.PostAsJsonAsync("/api/auctions", auction);
+        
+        // assert
+        response.EnsureSuccessStatusCode();
+        Assert.Equal(HttpStatusCode.Created, response?.StatusCode);
+    }
+    
+    [Fact]
+    public async Task CreateAuction_WithAuth_ShouldReturnBobAsSeller()
+    {
+        // arrange
+        var auction = GetAuctionForCreate();
+        const string userName = "Bob";
+        _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser(userName));
+        
+        // act
+        var response = await _httpClient.PostAsJsonAsync("/api/auctions", auction);
+        
+        // assert
+        response.EnsureSuccessStatusCode();
+        var createdAuction = await response.Content.ReadFromJsonAsync<AuctionDto>();
+        Assert.Equal(userName, createdAuction?.Seller);
+    }
+    
+    [Fact]
+    public async Task CreateAuction_WithInvalidCreateAuctionDto_ShouldReturn400()
+    {
+        // arrange
+        var auction = GetAuctionForCreate();
+        auction.Make = null;
+        const string userName = "Bob";
+        _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser(userName));
+
+        // act
+        var response = await _httpClient.PostAsJsonAsync("/api/auctions", auction);
+
+        // assert
+        Assert.Equal(HttpStatusCode.BadRequest, response?.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdateAuction_WithValidUpdateDtoAndUser_ShouldReturn200()
+    {
+        // arrange
+        var updateAuctionDto = new UpdateAuctionDto()
+        {
+            Make = "BMW",
+            Model = "X3",
+            Year = 2017,
+            Color = "White",
+            Mileage = 45000,
+        };
+        const string userName = "tom";
+        _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser(userName));
+
+        // act
+        var response =  await _httpClient.PutAsJsonAsync($"/api/auctions/{SLK_ID}", updateAuctionDto);
+
+        // assert
+        response.EnsureSuccessStatusCode();
+        Assert.Equal(HttpStatusCode.OK, response?.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdateAuction_WithValidUpdateDtoAndInvalidUser_ShouldReturn403()
+    {
+        // arrange
+        var updateAuctionDto = new UpdateAuctionDto()
+        {
+            Make = "BMW",
+            Model = "X3",
+            Year = 2017,
+            Color = "White",
+            Mileage = 45000,
+        };
+        const string userName = "test";
+        _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser(userName));
+
+        // act
+        var response =  await _httpClient.PutAsJsonAsync($"/api/auctions/{SLK_ID}", updateAuctionDto);
+
+        // assert
+        Assert.Equal(HttpStatusCode.Forbidden, response?.StatusCode);
+    }
+
+    public Task InitializeAsync() => Task.CompletedTask;
+
+    public Task DisposeAsync()
     {
         try
         {
@@ -77,5 +185,18 @@ public class AuctionControllerTests(CustomWebAppFactory factory) : IClassFixture
         }
     }
 
-    public Task DisposeAsync() => Task.CompletedTask;
+    private CreateAuctionDto GetAuctionForCreate()
+    {
+        return new CreateAuctionDto
+        {
+            Make = "test",
+            Model = "testModel",
+            Year = 2026,
+            Color = "test",
+            Mileage = 10,
+            ImageUrl = "test",
+            ReservePrice = 10,
+            AuctionEnd = DateTimeOffset.UtcNow
+        };
+    }
 }
