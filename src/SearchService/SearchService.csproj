@@ -8,12 +8,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="13.0.1"/>
-        <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.9" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
-        <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="10.0.7" />
-        <PackageReference Include="MongoDB.Entities" Version="24.1.1" />
-        <PackageReference Include="Scalar.AspNetCore" Version="2.14.4" />
+        <PackageReference Include="AutoMapper" />
+        <PackageReference Include="MassTransit.RabbitMQ" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+        <PackageReference Include="Microsoft.Extensions.Http.Polly" />
+        <PackageReference Include="MongoDB.Entities" />
+        <PackageReference Include="Scalar.AspNetCore" />
     </ItemGroup>
 
     <ItemGroup>
