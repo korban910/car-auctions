@@ -33,16 +33,20 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Lifetime.ApplicationStarted.Register(async void () =>
+if (!app.Environment.IsEnvironment(Environment.GetEnvironmentVariable("TESTING")!))
 {
-    try
+    app.Lifetime.ApplicationStarted.Register(async void () =>
     {
-        await app.InitDb();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex);
-    }
-});
+        try
+        {
+            await app.InitDb();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    });
+
+}
 
 app.Run();

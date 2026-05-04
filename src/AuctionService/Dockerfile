@@ -5,7 +5,8 @@ COPY car-auctions.slnx ./
 COPY Directory.Packages.props ./
 COPY src/AuctionService/AuctionService.csproj ./src/AuctionService/
 COPY src/Contracts/Contracts.csproj ./src/Contracts/
-
+COPY tests/AuctionService.UnitTests/AuctionService.UnitTests.csproj ./tests/AuctionService.UnitTests/
+COPY tests/AuctionService.IntegrationTests/AuctionService.IntegrationTests.csproj ./tests/AuctionService.IntegrationTests/
 RUN dotnet restore ./src/AuctionService/AuctionService.csproj
 
 COPY . .

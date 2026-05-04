@@ -2,16 +2,18 @@ using System.Net;
 using System.Net.Http.Json;
 using AuctionService.Context;
 using AuctionService.DTOs;
+using AuctionService.IntegrationTests.Constants;
 using AuctionService.IntegrationTests.Fixtures;
 using AuctionService.IntegrationTests.Util;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AuctionService.IntegrationTests;
 
-public class AuctionControllerTests(CustomWebAppFactory factory) : IClassFixture<CustomWebAppFactory>, IAsyncLifetime
+[Collection(TestConstants.SharedCollection)]
+public class AuctionControllerTests(CustomWebAppFactory factory) : IAsyncLifetime
 {
     private readonly HttpClient _httpClient = factory.CreateClient();
-    private const string SLK_ID = "155225c1-4448-4066-9886-6786536e05ea";
+    private const string SlkId = "155225c1-4448-4066-9886-6786536e05ea";
 
     [Fact]
     public async Task GetAuctions_ShouldReturn4Auctions()
@@ -31,7 +33,7 @@ public class AuctionControllerTests(CustomWebAppFactory factory) : IClassFixture
         // arrange
         
         // act
-        var response = await _httpClient.GetFromJsonAsync<AuctionDto>($"/api/auctions/{SLK_ID}");
+        var response = await _httpClient.GetFromJsonAsync<AuctionDto>($"/api/auctions/{SlkId}");
         
         // assert
         Assert.Equal("SLK", response?.Item.Model);
@@ -138,7 +140,7 @@ public class AuctionControllerTests(CustomWebAppFactory factory) : IClassFixture
         _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser(userName));
 
         // act
-        var response =  await _httpClient.PutAsJsonAsync($"/api/auctions/{SLK_ID}", updateAuctionDto);
+        var response =  await _httpClient.PutAsJsonAsync($"/api/auctions/{SlkId}", updateAuctionDto);
 
         // assert
         response.EnsureSuccessStatusCode();
@@ -161,7 +163,7 @@ public class AuctionControllerTests(CustomWebAppFactory factory) : IClassFixture
         _httpClient.SetFakeJwtBearerToken(AuthHelper.GetBearerForUser(userName));
 
         // act
-        var response =  await _httpClient.PutAsJsonAsync($"/api/auctions/{SLK_ID}", updateAuctionDto);
+        var response =  await _httpClient.PutAsJsonAsync($"/api/auctions/{SlkId}", updateAuctionDto);
 
         // assert
         Assert.Equal(HttpStatusCode.Forbidden, response?.StatusCode);
@@ -185,7 +187,7 @@ public class AuctionControllerTests(CustomWebAppFactory factory) : IClassFixture
         }
     }
 
-    private CreateAuctionDto GetAuctionForCreate()
+    private static CreateAuctionDto GetAuctionForCreate()
     {
         return new CreateAuctionDto
         {
