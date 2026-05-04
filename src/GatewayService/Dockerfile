@@ -4,6 +4,8 @@ WORKDIR /app
 COPY car-auctions.slnx ./
 COPY Directory.Packages.props ./
 COPY src/GatewayService/GatewayService.csproj ./src/GatewayService/
+COPY tests/AuctionService.UnitTests/AuctionService.UnitTests.csproj ./tests/AuctionService.UnitTests/
+COPY tests/AuctionService.IntegrationTests/AuctionService.IntegrationTests.csproj ./tests/AuctionService.IntegrationTests/
 
 RUN dotnet restore ./src/GatewayService/GatewayService.csproj
 

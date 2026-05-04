@@ -12,5 +12,5 @@ public class AuctionCreated
     public DateTimeOffset UpdatedAt { get; set; }
     public DateTimeOffset AuctionEnd { get; set; }
     public required string Status { get; set; }
-    public Item Item { get; set; }
+    public required Item Item { get; set; }
 }
