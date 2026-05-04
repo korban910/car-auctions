@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 COPY car-auctions.slnx ./
+COPY Directory.Packages.props ./
 COPY src/AuctionService/AuctionService.csproj ./src/AuctionService/
 COPY src/Contracts/Contracts.csproj ./src/Contracts/
 
