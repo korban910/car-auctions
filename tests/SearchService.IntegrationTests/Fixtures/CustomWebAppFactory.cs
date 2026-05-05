@@ -11,19 +11,21 @@ namespace SearchService.IntegrationTests.Fixtures;
 
 public class CustomWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private readonly MongoDbContainer _mongoContainer = new MongoDbBuilder()
-        .WithImage("mongo:latest")
-        .Build();
-    
-    public async Task InitializeAsync()
+    private readonly MongoDbContainer _mongoContainer = new MongoDbBuilder().Build();
+
+    public CustomWebAppFactory()
     {
         DotNetEnv.Env.Load();
+    }
+
+    public async Task InitializeAsync()
+    {
         await _mongoContainer.StartAsync();
 
         var connString = _mongoContainer.GetConnectionString();
 
         await DB.InitAsync(
-            Environment.GetEnvironmentVariable("TEST_MONGO_DB")!, 
+            Environment.GetEnvironmentVariable("TEST_MONGO_DB")!,
             MongoClientSettings.FromConnectionString(connString));
 
         await DB.Index<Auction>()
@@ -32,11 +34,11 @@ public class CustomWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetim
             .Key(x => x.Item.Color, KeyType.Text)
             .CreateAsync();
     }
-    
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment(Environment.GetEnvironmentVariable("TESTING")!);
-        
+
         builder.ConfigureTestServices(services =>
         {
             services.AddMassTransitTestHarness();
@@ -44,4 +46,4 @@ public class CustomWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetim
     }
 
     public new async Task DisposeAsync() => await _mongoContainer.StopAsync();
-} 
+}
