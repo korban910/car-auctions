@@ -1,7 +1,9 @@
+import Listings from "@/app/auctions/Listings";
+
 const Home = () => {
   return (
     <div>
-      Content goes here
+      <Listings />
     </div>
   );
 }
