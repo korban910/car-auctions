@@ -1,9 +1,9 @@
 import React from 'react';
-import Image from "next/image";
 import CountdownTimer from "@/app/auctions/CountdownTimer";
+import CarImage from "@/app/auctions/CarImage";
 
 type AuctionCardProps = {
-  auction: any;
+  auction: Auction;
 }
 
 const AuctionCard = (
@@ -14,14 +14,7 @@ const AuctionCard = (
   return (
     <a href="#">
       <div className="relative w-full bg-gray-200 aspect-16/10 rounded-lg overflow-hidden">
-        <Image
-          src={auction.item.imageUrl}
-          alt='Image of car'
-          fill
-          className="object-cover"
-          priority
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-        />
+        <CarImage imageUrl={auction.item.imageUrl} />
         <div className="absolute bottom-2 left-2">
           <CountdownTimer auctionEnd={auction.auctionEnd} />
         </div>
