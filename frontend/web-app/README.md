@@ -26,4 +26,6 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 bun add react-icons
 bun add react-countdown
 npx flowbite-react@latest init
+bun add zustand
+bun add query-string
 ```
