@@ -6,20 +6,24 @@ import { Pagination } from "flowbite-react";
 type PaginationProps = {
   currentPage: number;
   pageCount: number;
+  pageChanged: (page: number) => void;
 }
 
 const AppPagination = (
   {
     currentPage,
-    pageCount
+    pageCount,
+    pageChanged,
   } : PaginationProps
 ) => {
-  const [pageNumber, setPageNumber] = React.useState(currentPage);
+  const handlePageChange = (page: number) => {
+    pageChanged(page);
+  }
 
   return (
       <Pagination
-        currentPage={pageNumber}
-        onPageChange={e => setPageNumber(e)}
+        currentPage={currentPage}
+        onPageChange={e => handlePageChange(e)}
         totalPages={pageCount}
         layout={"pagination"}
         showIcons
