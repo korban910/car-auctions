@@ -16,6 +16,9 @@ const AppPagination = (
     pageChanged,
   } : PaginationProps
 ) => {
+
+  if (pageCount < 1) return null;
+
   const handlePageChange = (page: number) => {
     pageChanged(page);
   }
