@@ -64,6 +64,16 @@ sudo sysctl fs.inotify.max_user_instances=512
 inside the `root` folder:
 
 ```
+docker compose build
+```
+
+or
+
+```
+docker compose build --no-cache --pull
+```
+
+```
 docker compose up -d
 docker compose up --build -d
 docker compose up postgres -d

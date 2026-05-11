@@ -41,7 +41,7 @@ public static class Config
                 new Secret(Environment.GetEnvironmentVariable("NEXT_SECRET")!.Sha256())
             ],
             AllowedGrantTypes = { GrantType.ClientCredentials, GrantType.AuthorizationCode },
-            RequirePkce = false,
+            RequirePkce = true,
             RedirectUris = { Environment.GetEnvironmentVariable("NEXT_REDIRECTURI")! }, 
             AllowOfflineAccess = true,
             AllowedScopes =
