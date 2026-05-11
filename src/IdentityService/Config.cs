@@ -50,7 +50,8 @@ public static class Config
                 Environment.GetEnvironmentVariable("PROFILE_SCOPE")!,
                 Environment.GetEnvironmentVariable("APP_SCOPE")!
             },
-            AccessTokenLifetime = 3600 * 24 * 30
+            AccessTokenLifetime = 3600 * 24 * 30,
+            AlwaysIncludeUserClaimsInIdToken = true,
         }
     ];
 }
