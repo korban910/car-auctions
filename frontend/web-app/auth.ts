@@ -17,7 +17,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       idToken: true
     } as OIDCConfig<Omit<Profile, 'username'>>),
   ],
+  pages: {
+    signIn: '/api/auth/signin',
+  },
   callbacks: {
+    async authorized({ auth }){
+      return !!auth;
+    },
     async jwt({ token, profile }) {
       if (profile) { // User is available during sign-in
         token.username = profile.username;
