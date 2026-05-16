@@ -15,7 +15,6 @@ const CarImage = (
   const [loading, setLoading] = React.useState(true);
 
   return (
-    <div>
       <Image
         src={imageUrl}
         alt='Image of car'
@@ -26,7 +25,6 @@ const CarImage = (
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
         onLoad={() => setLoading(false)}
       />
-    </div>
   );
 };
 

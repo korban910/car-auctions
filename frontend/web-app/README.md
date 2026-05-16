@@ -29,4 +29,5 @@ npx flowbite-react@latest init
 bun add zustand
 bun add query-string
 bun add next-auth@beta
+bun add react-hook-form react-datepicker
 ```
