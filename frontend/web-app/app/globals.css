@@ -6,6 +6,10 @@
   cursor: pointer;
 }
 
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
 /*
 .flex-row-pagination ul {
   display: inline-flex !important;
