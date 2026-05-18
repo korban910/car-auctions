@@ -5,6 +5,8 @@ import { FieldValues, useForm } from "react-hook-form";
 import { Button, Spinner } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import Input from "@/app/components/Input";
+import DateInput from "@/app/components/DateInput";
+import { createAuction } from "@/app/actions/auctionActions";
 
 const AuctionForm = () => {
   const {
@@ -17,8 +19,17 @@ const AuctionForm = () => {
   });
   const router = useRouter();
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     console.log(data);
+    try {
+      const response = await createAuction(data);
+      if (response.error){
+        throw new Error(response.error)
+      }
+      router.push(`/auctions/details/${response.id}`);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const handleCancel = () => {
@@ -40,9 +51,19 @@ const AuctionForm = () => {
         <Input name="mileage" label="Mileage" control={control} type="number" rules={{ required: 'Mileage is required'}} />
       </div>
 
+      <Input name="imageUrl" label="Image URL" control={control} rules={{ required: 'Image URL is required'}} />
+
       <div className="grid grid-cols-2 gap-3">
         <Input name="reservePrice" label="Reserve Price(enter 0 if no reserve)" control={control} type="number" rules={{ required: 'Reserve Price is required'}} />
-        <Input name="auctionEnd" label="Auction end data/time" control={control} type="date" rules={{ required: 'Auction end date is required'}} />
+        {/*<Input name="auctionEnd" label="Auction end date/time" control={control} type="datetime-local" rules={{ required: 'Auction end date is required'}} />*/}
+        <DateInput
+          name="auctionEnd"
+          label="Auction end date/time"
+          control={control}
+          showTimeSelect
+          dateFormat="dd MMMM yyyy h:mm a"
+          rules={{ required: 'Auction end date is required'}}
+        />
       </div>
 
       <div className="flex justify-between">
