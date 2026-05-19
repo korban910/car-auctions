@@ -1,6 +1,6 @@
 type Auction = {
   id: string;
-  reservePrice?: number;
+  reservePrice: number;
   seller: string;
   winner?: string;
   soldAmount?: number;
