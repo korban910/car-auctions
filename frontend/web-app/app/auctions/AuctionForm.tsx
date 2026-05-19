@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Input from "@/app/components/Input";
 import DateInput from "@/app/components/DateInput";
 import { createAuction } from "@/app/actions/auctionActions";
+import toast from "react-hot-toast";
 
 const AuctionForm = () => {
   const {
@@ -23,12 +24,13 @@ const AuctionForm = () => {
     console.log(data);
     try {
       const response = await createAuction(data);
-      if (response.error){
-        throw new Error(response.error)
+      if (response.error) {
+        toast.error(`${response.error.status} ${response.error.message}`);
+        return;
       }
       router.push(`/auctions/details/${response.id}`);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(`${error.status} ${error.message}`);
     }
   }
 
