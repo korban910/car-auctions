@@ -25,9 +25,19 @@ const getDetailedViewData = async (id: string) : Promise<Auction> => {
   return fetchWrapper.get(`auctions/${id}`);
 }
 
+const updateAuction = async (id: string, data: FieldValues) => {
+  return fetchWrapper.put(`auctions/${id}`, data);
+}
+
+const deleteAuction = async (id: string) => {
+  return fetchWrapper.remove(`auctions/${id}`);
+}
+
 export {
   getData,
   updateAuctionTest,
   createAuction,
-  getDetailedViewData
+  getDetailedViewData,
+  updateAuction,
+  deleteAuction
 }

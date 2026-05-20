@@ -3,15 +3,24 @@
 import React, { useEffect } from 'react';
 import { FieldValues, useForm } from "react-hook-form";
 import { Button, Spinner } from "flowbite-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Input from "@/app/components/Input";
 import DateInput from "@/app/components/DateInput";
-import { createAuction } from "@/app/actions/auctionActions";
+import { createAuction, updateAuction } from "@/app/actions/auctionActions";
 import toast from "react-hot-toast";
 
-const AuctionForm = () => {
+type AuctionFormProps = {
+  auction?: Auction;
+}
+
+const AuctionForm = (
+  {
+    auction
+  } : AuctionFormProps
+) => {
   const {
     control,
+    reset,
     handleSubmit,
     setFocus,
     formState: {isSubmitting, isValid, isDirty}
@@ -19,16 +28,25 @@ const AuctionForm = () => {
     mode: "onTouched",
   });
   const router = useRouter();
-
+  const pathname = usePathname();
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
     try {
-      const response = await createAuction(data);
+      let id = '';
+      let response;
+      if (pathname === '/auctions/create') {
+        response = await createAuction(data);
+        id = response.id;
+      } else {
+        if (auction) {
+          response = await updateAuction(auction.id, data);
+          id = auction.id;
+        }
+      }
       if (response.error) {
         toast.error(`${response.error.status} ${response.error.message}`);
         return;
       }
-      router.push(`/auctions/details/${response.id}`);
+      router.push(`/auctions/details/${id}`);
     } catch (error: any) {
       toast.error(`${error.status} ${error.message}`);
     }
@@ -39,8 +57,13 @@ const AuctionForm = () => {
   }
 
   useEffect(() => {
+    if (auction){
+      const {item} = auction;
+      const {make, model, color, mileage, year} = item;
+      reset({make, model, color, mileage, year});
+    }
     setFocus('make')
-  }, [setFocus]);
+  }, [setFocus, auction, reset]);
 
   return (
     <form className="flex flex-col mt-3" onSubmit={handleSubmit(onSubmit)}>
@@ -53,20 +76,37 @@ const AuctionForm = () => {
         <Input name="mileage" label="Mileage" control={control} type="number" rules={{ required: 'Mileage is required'}} />
       </div>
 
-      <Input name="imageUrl" label="Image URL" control={control} rules={{ required: 'Image URL is required'}} />
+      {
+        pathname === "/auctions/create" && (
+          <>
+            <Input
+              name="imageUrl"
+              label="Image URL"
+              control={control}
+              rules={{ required: 'Image URL is required'}}
+            />
 
-      <div className="grid grid-cols-2 gap-3">
-        <Input name="reservePrice" label="Reserve Price(enter 0 if no reserve)" control={control} type="number" rules={{ required: 'Reserve Price is required'}} />
-        {/*<Input name="auctionEnd" label="Auction end date/time" control={control} type="datetime-local" rules={{ required: 'Auction end date is required'}} />*/}
-        <DateInput
-          name="auctionEnd"
-          label="Auction end date/time"
-          control={control}
-          showTimeSelect
-          dateFormat="dd MMMM yyyy h:mm a"
-          rules={{ required: 'Auction end date is required'}}
-        />
-      </div>
+            <div className="grid grid-cols-2 gap-3">
+              <Input
+                name="reservePrice"
+                label="Reserve Price(enter 0 if no reserve)"
+                control={control}
+                type="number"
+                rules={{ required: 'Reserve Price is required'}}
+              />
+              {/*<Input name="auctionEnd" label="Auction end date/time" control={control} type="datetime-local" rules={{ required: 'Auction end date is required'}} />*/}
+              <DateInput
+                name="auctionEnd"
+                label="Auction end date/time"
+                control={control}
+                showTimeSelect
+                dateFormat="dd MMMM yyyy h:mm a"
+                rules={{ required: 'Auction end date is required'}}
+              />
+            </div>
+          </>
+        )
+      }
 
       <div className="flex justify-between">
         <Button outline color="gray" onClick={handleCancel}>
