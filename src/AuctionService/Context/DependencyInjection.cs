@@ -27,7 +27,9 @@ public static class DependencyInjection
             });
             
             config.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
-            config.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
+            config.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter(
+                Environment.GetEnvironmentVariable("AUCTION_MASS_PREFIX")!,
+                false));
     
             config.UsingRabbitMq((ctx, cfg) =>
             {
