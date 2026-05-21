@@ -10,7 +10,9 @@ public static class DependencyInjection
         {
             config.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
             
-            config.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
+            config.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter(
+                Environment.GetEnvironmentVariable("SEARCH_MASS_PREFIX")!, 
+                false));
             
             config.UsingRabbitMq((ctx, cfg) =>
             {
