@@ -1,3 +1,4 @@
+using BiddingService.Consumers;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -9,6 +10,8 @@ public static class DependencyInjection
     {
         services.AddMassTransit(config =>
         {
+            config.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
+                
             config.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter(
                 Environment.GetEnvironmentVariable("BID_MASS_PREFIX")!, 
                 false));
