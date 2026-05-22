@@ -11,13 +11,17 @@
     <PackageReference Include="MongoDB.Entities" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="MassTransit.RabbitMQ" />
+    <PackageReference Include="Ardalis.SmartEnum" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Common\Helpers\" />
     <Folder Include="Common\Seeds\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Mapping\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
   </ItemGroup>
 
 </Project>
