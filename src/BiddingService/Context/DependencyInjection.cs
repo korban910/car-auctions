@@ -1,4 +1,5 @@
 using BiddingService.Consumers;
+using BiddingService.services;
 using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,5 +39,10 @@ public static class DependencyInjection
                 options.TokenValidationParameters.ValidateAudience = false;
                 options.TokenValidationParameters.NameClaimType = Environment.GetEnvironmentVariable("CLAIM_USER_NAME");
             });
+    }
+
+    public static void AddServices(this IServiceCollection services)
+    {
+        services.AddHostedService<CheckAuctionFinished>();
     }
 }

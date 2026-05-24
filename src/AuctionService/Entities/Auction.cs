@@ -13,7 +13,7 @@ public class Auction
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset AuctionEnd { get; set; }
-    public Status Status { get; set; } = Status.Unknown;
+    public Status Status { get; set; } = Status.Live;
     public Item Item { get; set; }
     public bool HasReservePrice() => ReservePrice > 0;
 }

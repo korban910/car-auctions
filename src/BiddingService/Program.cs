@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMassTransitServices();
 builder.Services.AddTokenVerification();
 builder.Services.AddMapping();
+builder.Services.AddServices();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
