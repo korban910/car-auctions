@@ -1,6 +1,8 @@
+using System.Net;
 using AuctionService.Consumers;
 using AuctionService.Context.Interfaces;
 using MassTransit;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuctionService.Context;
@@ -46,5 +48,23 @@ public static class DependencyInjection
     public static void AddDependencyInjections(this IServiceCollection services)
     {
         services.AddScoped<IAuctionRepository, AuctionRepository>();
+    }
+
+    public static void AddKestrelServices(this IServiceCollection services)
+    {
+        services.Configure<KestrelServerOptions>(options =>
+        {
+            options.ListenLocalhost(int.Parse(Environment.GetEnvironmentVariable("GRPC_PORT")!),
+                listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http2;
+                });
+            
+            options.ListenLocalhost(int.Parse(Environment.GetEnvironmentVariable("WEB_API_PORT")!),
+                listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http1;
+                });
+        });
     }
 }

@@ -6,6 +6,7 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddKestrelServices();
 builder.Services.AddAuctionDbContext();
 builder.Services.AddMapping();
 builder.Services.AddMassTransitServices();
