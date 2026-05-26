@@ -2,6 +2,7 @@ using AutoMapper;
 using BiddingService.Common.Enums;
 using BiddingService.DTOs;
 using BiddingService.Entities;
+using BiddingService.services;
 using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -14,18 +15,23 @@ namespace BiddingService.Controllers;
 [Route("api/[controller]")]
 public class BidsController(
     IMapper mapper,
+    GrpcAuctionClient grpcAuctionClient,
     IPublishEndpoint publishEndpoint) : ControllerBase
 {
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<BidDto>> PlaceBid(string auctionId, int amount)
+    public async Task<ActionResult<BidDto>> PlaceBid(PlaceBidRequest request)
     {
-        var auction = await DB.Find<Auction>().OneAsync(auctionId);
+        var auction = await DB.Find<Auction>().OneAsync(request.AuctionId);
 
         if (auction == null)
         {
-            // TODO: check with auction server if that has auction
-            return NotFound();
+            auction = grpcAuctionClient.GetAuction(request.AuctionId);
+
+            if (auction == null)
+            {
+                return BadRequest("Cannot accept bids on this auction at this time.");
+            }
         }
 
         if (auction.Seller == User.Identity?.Name)
@@ -35,8 +41,8 @@ public class BidsController(
 
         var bid = new Bid
         {
-            Amount = amount,
-            AuctionId = auctionId,
+            Amount = request.Amount,
+            AuctionId = request.AuctionId,
             Bidder = User.Identity?.Name!,
         };
 
@@ -47,13 +53,13 @@ public class BidsController(
         else
         {
             var highBid = await DB.Find<Bid>()
-                .Match(a => a.AuctionId == auctionId)
+                .Match(a => a.AuctionId == request.AuctionId)
                 .Sort(b => b.Descending(x => x.Amount))
                 .ExecuteFirstAsync();
 
-            if (highBid != null && amount > highBid.Amount || highBid == null)
+            if (highBid != null && request.Amount > highBid.Amount || highBid == null)
             {
-                bid.BidStatus = amount > auction.ReservePrice
+                bid.BidStatus = request.Amount > auction.ReservePrice
                     ? BidStatus.Accepted
                     : BidStatus.AcceptedBelowReserved;
             }
