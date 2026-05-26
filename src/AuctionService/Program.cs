@@ -1,6 +1,7 @@
 using AuctionService.Common.Seeds;
 using AuctionService.Context;
 using AuctionService.Mapping;
+using AuctionService.Services;
 using Scalar.AspNetCore; 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddTokenVerification();
+builder.Services.AddGrpc();
 
 var app = builder.Build();
 
@@ -30,6 +32,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGrpcService<GrpcAuctionService>();
 
 if (!app.Environment.IsEnvironment(Environment.GetEnvironmentVariable("INTEGRATION_TEST")!))
 {

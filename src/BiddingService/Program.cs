@@ -1,5 +1,6 @@
 using BiddingService.Context;
 using BiddingService.Mapping;
+using BiddingService.services;
 using MongoDB.Driver;
 using MongoDB.Entities;
 
@@ -13,6 +14,7 @@ builder.Services.AddServices();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddScoped<GrpcAuctionClient>();
 
 var app = builder.Build();
 

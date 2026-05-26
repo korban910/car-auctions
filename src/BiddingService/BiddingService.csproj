@@ -13,10 +13,17 @@
     <PackageReference Include="MassTransit.RabbitMQ" />
     <PackageReference Include="Ardalis.SmartEnum" />
     <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Grpc.Tools" />
+    <PackageReference Include="Grpc.Net.Client" />
+    <PackageReference Include="Google.Protobuf" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="protos\auctions.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>
