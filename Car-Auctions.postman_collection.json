@@ -176,7 +176,9 @@
 									"    pm.response.to.have.status(200);",
 									"})"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2580,7 +2582,9 @@
 											"",
 											"pm.collectionVariables.set(\"createdItemId\", jsonData.id);"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -2590,9 +2594,13 @@
 											"var date = new Date()",
 											"date.setDate(date.getDate() + 14);",
 											"var dateString = date.toISOString();",
-											"pm.variables.set(\"dateString\", dateString);"
+											"pm.variables.set(\"dateString\", dateString);",
+											"",
+											"console.log(pm.variables.get(\"dateString\"))"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -2611,7 +2619,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"make\": \"Ford\",\n  \"model\": \"Escort\",\n  \"color\": \"White\",\n  \"year\": \"2021\",\n  \"mileage\": \"10000\",\n  \"imageUrl\": \"https://cdn.pixabay.com/photo/2018/02/04/15/45/car-3130111_960_720.jpg\",\n  \"reservePrice\": 1111,\n  \"auctionEnd\": \"{{dateString}}\"\n}",
+									"raw": "{\n  \"make\": \"Ford\",\n  \"model\": \"Escort\",\n  \"year\": 2021,\n  \"color\": \"White\",\n  \"mileage\": 10000,\n  \"imageUrl\": \"https://cdn.pixabay.com/photo/2018/02/04/15/45/car-3130111_960_720.jpg\",\n  \"reservePrice\": 1111,\n  \"auctionEnd\": \"{{dateString}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2711,23 +2719,22 @@
 								},
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"auctionId\": \"{{createdItemId}}\",\n    \"amount\": 100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{gateway}}/bids?auctionId={{createdItemId}}&amount=100",
+									"raw": "{{gateway}}/bids",
 									"host": [
 										"{{gateway}}"
 									],
 									"path": [
 										"bids"
-									],
-									"query": [
-										{
-											"key": "auctionId",
-											"value": "{{createdItemId}}"
-										},
-										{
-											"key": "amount",
-											"value": "100"
-										}
 									]
 								}
 							},
@@ -2766,23 +2773,22 @@
 								},
 								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"auctionId\" : \"c8c3ec17-01bf-49db-82aa-1ef80b833a9f\",\n    \"amount\": 100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{gateway}}/bids?auctionId=bbab4d5a-8565-48b1-9450-5ac2a5c4a654&amount=100",
+									"raw": "{{gateway}}/bids",
 									"host": [
 										"{{gateway}}"
 									],
 									"path": [
 										"bids"
-									],
-									"query": [
-										{
-											"key": "auctionId",
-											"value": "bbab4d5a-8565-48b1-9450-5ac2a5c4a654"
-										},
-										{
-											"key": "amount",
-											"value": "100"
-										}
 									]
 								}
 							},
@@ -2875,10 +2881,12 @@
 									"});",
 									"",
 									"pm.collectionVariables.set(\"createdItemId\", jsonData.id);",
-									"pm.collectionVariables.set(\"createdItemMileage\", jsonData.mileage);",
-									"pm.collectionVariables.set(\"createdItemModel\", jsonData.model);"
+									"pm.collectionVariables.set(\"createdItemMileage\", jsonData.item.mileage);",
+									"pm.collectionVariables.set(\"createdItemModel\", jsonData.item.model);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -2890,7 +2898,9 @@
 									"var dateString = date.toISOString();",
 									"pm.variables.set(\"dateString\", dateString);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -3204,7 +3214,7 @@
 					"response": []
 				},
 				{
-					"name": "Create 10 second Auction as Bob",
+					"name": "Create 20 second Auction as Bob",
 					"event": [
 						{
 							"listen": "test",
@@ -3222,10 +3232,12 @@
 									"});",
 									"",
 									"pm.collectionVariables.set(\"createdItemId\", jsonData.id);",
-									"pm.collectionVariables.set(\"createdItemMileage\", jsonData.mileage);",
-									"pm.collectionVariables.set(\"createdItemModel\", jsonData.model);"
+									"pm.collectionVariables.set(\"createdItemMileage\", jsonData.item.mileage);",
+									"pm.collectionVariables.set(\"createdItemModel\", jsonData.item.model);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -3236,7 +3248,9 @@
 									"var dateString = date.toISOString();",
 									"pm.variables.set(\"dateString\", dateString);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -3320,24 +3334,23 @@
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auctionId\": \"6a5011a1-fe1f-47df-9a32-b5346b289391\",\n    \"amount\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{bidSvc}}/api/bids?auctionId=6a5011a1-fe1f-47df-9a32-b5346b289391&amount=100",
+							"raw": "{{bidSvc}}/api/bids",
 							"host": [
 								"{{bidSvc}}"
 							],
 							"path": [
 								"api",
 								"bids"
-							],
-							"query": [
-								{
-									"key": "auctionId",
-									"value": "6a5011a1-fe1f-47df-9a32-b5346b289391"
-								},
-								{
-									"key": "amount",
-									"value": "100"
-								}
 							]
 						}
 					},

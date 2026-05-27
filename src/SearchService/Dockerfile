@@ -3,14 +3,14 @@ WORKDIR /app
 
 COPY car-auctions.slnx ./
 COPY Directory.Packages.props ./
+
 COPY src/SearchService/SearchService.csproj ./src/SearchService/
 COPY src/Contracts/Contracts.csproj ./src/Contracts/
-COPY tests/AuctionService.UnitTests/AuctionService.UnitTests.csproj ./tests/AuctionService.UnitTests/
-COPY tests/AuctionService.IntegrationTests/AuctionService.IntegrationTests.csproj ./tests/AuctionService.IntegrationTests/
-
 RUN dotnet restore ./src/SearchService/SearchService.csproj
 
-COPY . .
+COPY src/SearchService/ ./src/SearchService/
+COPY src/Contracts/ ./src/Contracts/
+
 RUN dotnet publish ./src/SearchService/SearchService.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime

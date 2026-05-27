@@ -54,13 +54,13 @@ public static class DependencyInjection
     {
         services.Configure<KestrelServerOptions>(options =>
         {
-            options.ListenLocalhost(int.Parse(Environment.GetEnvironmentVariable("GRPC_PORT")!),
+            options.ListenAnyIP(int.Parse(Environment.GetEnvironmentVariable("GRPC_PORT")!),
                 listenOptions =>
                 {
                     listenOptions.Protocols = HttpProtocols.Http2;
                 });
             
-            options.ListenLocalhost(int.Parse(Environment.GetEnvironmentVariable("WEB_API_PORT")!),
+            options.ListenAnyIP(int.Parse(Environment.GetEnvironmentVariable("WEB_API_PORT")!),
                 listenOptions =>
                 {
                     listenOptions.Protocols = HttpProtocols.Http1;

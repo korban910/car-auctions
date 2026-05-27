@@ -32,7 +32,7 @@ public static class DependencyInjection
         [
             new RouteConfig
             {
-                RouteId = "auctionRead",
+                RouteId = Environment.GetEnvironmentVariable("AUCTION_CLUSTER_READ")!,
                 ClusterId = Environment.GetEnvironmentVariable("AUCTION_CLUSTER_ID"),
                 Match = new RouteMatch
                 {
@@ -49,9 +49,9 @@ public static class DependencyInjection
             },
             new RouteConfig
             {
-                RouteId = "auctionWrite",
+                RouteId = Environment.GetEnvironmentVariable("AUCTION_CLUSTER_WRITE")!,
                 ClusterId = Environment.GetEnvironmentVariable("AUCTION_CLUSTER_ID"),
-                AuthorizationPolicy = "Default",
+                AuthorizationPolicy = Environment.GetEnvironmentVariable("AUTHORIZATION_POLICY")!,
                 Match = new RouteMatch
                 {
                     Path= "/auctions/{**catch-all}",
@@ -67,7 +67,7 @@ public static class DependencyInjection
             },
             new RouteConfig()
             {
-                RouteId = "search",
+                RouteId = Environment.GetEnvironmentVariable("SEARCH_CLUSTER_READ")!,
                 ClusterId = Environment.GetEnvironmentVariable("SEARCH_CLUSTER_ID"),
                 Match = new RouteMatch()
                 {
@@ -78,6 +78,39 @@ public static class DependencyInjection
                     new Dictionary<string, string>()
                     {
                         { "PathPattern", "api/search/{**catch-all}" }
+                    }
+                ]
+            },
+            new RouteConfig()
+            {
+                RouteId = Environment.GetEnvironmentVariable("BIDS_CLUSTER_READ")!,
+                ClusterId = Environment.GetEnvironmentVariable("BIDS_CLUSTER_ID"),
+                Match = new RouteMatch()
+                {
+                    Path = "/bids/{**catch-all}",
+                    Methods = ["GET"],
+                },
+                Transforms = [
+                    new Dictionary<string, string>()
+                    {
+                        { "PathPattern", "api/bids/{**catch-all}" }
+                    }
+                ]
+            },
+            new RouteConfig()
+            {
+                RouteId = Environment.GetEnvironmentVariable("BIDS_CLUSTER_WRITE")!,
+                ClusterId = Environment.GetEnvironmentVariable("BIDS_CLUSTER_ID"),
+                AuthorizationPolicy = Environment.GetEnvironmentVariable("AUTHORIZATION_POLICY")!,
+                Match = new RouteMatch()
+                {
+                    Path = "/bids",
+                    Methods = ["POST"],
+                },
+                Transforms = [
+                    new Dictionary<string, string>()
+                    {
+                        { "PathPattern", "api/bids" }
                     }
                 ]
             }
@@ -94,7 +127,7 @@ public static class DependencyInjection
                 Destinations = new Dictionary<string, DestinationConfig>
                 {
                     {
-                        "auctionApi",
+                        Environment.GetEnvironmentVariable("AUCTION_API")!,
                         new DestinationConfig { Address = Environment.GetEnvironmentVariable("AUCTION_URL")! }
                     }
                 }
@@ -105,8 +138,22 @@ public static class DependencyInjection
                 Destinations = new Dictionary<string, DestinationConfig>
                 {
                     {
-                        "searchApi",
+                        Environment.GetEnvironmentVariable("SEARCH_API")!,
                         new DestinationConfig { Address = Environment.GetEnvironmentVariable("SEARCH_URL")! }
+                    }
+                }
+            },
+            new ClusterConfig()
+            {
+                ClusterId = Environment.GetEnvironmentVariable("BIDS_CLUSTER_ID")!,
+                Destinations = new Dictionary<string, DestinationConfig>
+                {
+                    {
+                        Environment.GetEnvironmentVariable("BIDS_API")!,
+                        new DestinationConfig
+                        {
+                            Address = Environment.GetEnvironmentVariable("BIDS_URL")!
+                        }
                     }
                 }
             }
