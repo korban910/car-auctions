@@ -4,17 +4,17 @@ WORKDIR /app
 COPY car-auctions.slnx ./
 COPY Directory.Packages.props ./
 
-COPY src/AuctionService/AuctionService.csproj ./src/AuctionService/
+COPY src/BiddingService/BiddingService.csproj ./src/BiddingService/
 COPY src/Contracts/Contracts.csproj ./src/Contracts/
-RUN dotnet restore ./src/AuctionService/AuctionService.csproj
+RUN dotnet restore ./src/BiddingService/BiddingService.csproj
 
-COPY src/AuctionService/ ./src/AuctionService/
+COPY src/BiddingService/ ./src/BiddingService/
 COPY src/Contracts/ ./src/Contracts/
 
-RUN dotnet publish ./src/AuctionService/AuctionService.csproj -c Release -o /app/publish
+RUN dotnet publish ./src/BiddingService/BiddingService.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 EXPOSE 80
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "AuctionService.dll"]
+ENTRYPOINT ["dotnet", "BiddingService.dll"]

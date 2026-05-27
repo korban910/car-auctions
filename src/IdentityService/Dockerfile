@@ -4,12 +4,10 @@ WORKDIR /app
 COPY car-auctions.slnx ./
 COPY Directory.Packages.props ./
 COPY src/IdentityService/IdentityService.csproj ./src/IdentityService/
-COPY tests/AuctionService.UnitTests/AuctionService.UnitTests.csproj ./tests/AuctionService.UnitTests/
-COPY tests/AuctionService.IntegrationTests/AuctionService.IntegrationTests.csproj ./tests/AuctionService.IntegrationTests/
 
 RUN dotnet restore ./src/IdentityService/IdentityService.csproj
 
-COPY . .
+COPY src/IdentityService/ ./src/IdentityService/
 RUN dotnet publish ./src/IdentityService/IdentityService.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime

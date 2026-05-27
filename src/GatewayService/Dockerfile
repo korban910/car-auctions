@@ -4,12 +4,10 @@ WORKDIR /app
 COPY car-auctions.slnx ./
 COPY Directory.Packages.props ./
 COPY src/GatewayService/GatewayService.csproj ./src/GatewayService/
-COPY tests/AuctionService.UnitTests/AuctionService.UnitTests.csproj ./tests/AuctionService.UnitTests/
-COPY tests/AuctionService.IntegrationTests/AuctionService.IntegrationTests.csproj ./tests/AuctionService.IntegrationTests/
 
 RUN dotnet restore ./src/GatewayService/GatewayService.csproj
 
-COPY . .
+COPY src/GatewayService/ ./src/GatewayService/
 RUN dotnet publish ./src/GatewayService/GatewayService.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
