@@ -113,6 +113,15 @@ public static class DependencyInjection
                         { "PathPattern", "api/bids" }
                     }
                 ]
+            },
+            new RouteConfig()
+            {
+                RouteId = Environment.GetEnvironmentVariable("NOTIFICATION_CLUSTER")!,
+                ClusterId = Environment.GetEnvironmentVariable("NOTIFICATION_CLUSTER_ID"),
+                Match = new RouteMatch()
+                {
+                    Path = "/notifications/{**catch-all}",
+                }
             }
         ];
     }
@@ -153,6 +162,20 @@ public static class DependencyInjection
                         new DestinationConfig
                         {
                             Address = Environment.GetEnvironmentVariable("BIDS_URL")!
+                        }
+                    }
+                }
+            },
+            new ClusterConfig()
+            {
+                ClusterId = Environment.GetEnvironmentVariable("NOTIFICATION_CLUSTER_ID")!,
+                Destinations = new Dictionary<string, DestinationConfig>
+                {
+                    {
+                        Environment.GetEnvironmentVariable("NOTIFICATION_API")!,
+                        new DestinationConfig
+                        {
+                            Address = Environment.GetEnvironmentVariable("NOTIFICATION_URL")!
                         }
                     }
                 }

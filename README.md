@@ -26,6 +26,8 @@ dotnet new install Duende.Templates
 
 [Bid Service Details](src/BiddingService/README.md)
 
+[Notification Service Details](src/NotificationService/README.md)
+
 ### Add Projects into Solution
 
 inside the `root` folder:
@@ -37,6 +39,7 @@ dotnet sln add src/Contracts
 dotnet sln add src/IdentityService
 dotnet sln add src/GatewayService
 dotnet sln add src/BiddingService
+dotnet sln add src/NotificationService
 ```
 
 ### Mise (Optional but recommended)
