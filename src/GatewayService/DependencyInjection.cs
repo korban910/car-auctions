@@ -26,6 +26,20 @@ public static class DependencyInjection
             });
     }
 
+    public static void AddCustomCors(this IServiceCollection services)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy(Environment.GetEnvironmentVariable("CUSTOM_POLICY")!, b =>
+            { 
+                b.WithOrigins(Environment.GetEnvironmentVariable("CLIENT_APP")!)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+        });
+    }
+
     private static RouteConfig[] GetRouteConfig()
     {
         return
@@ -118,6 +132,7 @@ public static class DependencyInjection
             {
                 RouteId = Environment.GetEnvironmentVariable("NOTIFICATION_CLUSTER")!,
                 ClusterId = Environment.GetEnvironmentVariable("NOTIFICATION_CLUSTER_ID"),
+                CorsPolicy = Environment.GetEnvironmentVariable("CUSTOM_POLICY"),
                 Match = new RouteMatch()
                 {
                     Path = "/notifications/{**catch-all}",

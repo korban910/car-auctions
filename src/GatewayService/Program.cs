@@ -6,7 +6,11 @@ builder.Services.AddYarp();
 
 builder.Services.AddTokenVerification();
 
+builder.Services.AddCustomCors();
+
 var app = builder.Build();
+
+app.UseCors();
 
 app.MapReverseProxy();
 
