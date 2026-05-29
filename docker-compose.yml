@@ -124,6 +124,23 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+        
+  notify-svc:
+    image: korban910/notify-svc:latest
+    build:
+      context: .
+      dockerfile: src/NotificationService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${DOCKER_ASPNETCORE_URLS}
+      - RABBITMQ_HOST=${RABBITMQ_HOST_NAME}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+    ports:
+      - "7004:80"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
     
   identity-svc:
     image: korban910/identity-svc:latest
@@ -173,13 +190,19 @@ services:
       - BIDS_CLUSTER_READ=${BIDS_CLUSTER_READ}
       - BIDS_CLUSTER_WRITE=${BIDS_CLUSTER_WRITE}
       - BIDS_CLUSTER_ID=${BIDS_CLUSTER_ID}
+      - NOTIFICATION_CLUSTER=${NOTIFICATION_CLUSTER}
+      - NOTIFICATION_CLUSTER_ID=${NOTIFICATION_CLUSTER_ID}
       - AUCTION_URL=${DOCKER_AUCTION_URL}
       - AUCTION_API=${AUCTION_API}
       - SEARCH_URL=${DOCKER_SEARCH_URL}
       - SEARCH_API=${SEARCH_API}
       - BIDS_URL=${DOCKER_BIDDING_URL}
       - BIDS_API=${BIDS_API}
+      - NOTIFICATION_API=${NOTIFICATION_API}
+      - NOTIFICATION_URL=${DOCKER_NOTIFICATION_URL}
       - AUTHORIZATION_POLICY=${AUTHORIZATION_POLICY}
+      - CUSTOM_POLICY=${CUSTOM_POLICY}
+      - CLIENT_APP=${CLIENT_APP}
     ports:
       - "6001:80"
     
