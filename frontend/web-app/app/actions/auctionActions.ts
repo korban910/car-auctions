@@ -33,11 +33,16 @@ const deleteAuction = async (id: string) => {
   return fetchWrapper.remove(`auctions/${id}`);
 }
 
+const getBidsForAuction = async (id: string) : Promise<Bid[]> => {
+  return fetchWrapper.get(`bids/${id}`);
+}
+
 export {
   getData,
   updateAuctionTest,
   createAuction,
   getDetailedViewData,
   updateAuction,
-  deleteAuction
+  deleteAuction,
+  getBidsForAuction
 }
