@@ -7,6 +7,8 @@ import DetailedSpecs from "@/app/auctions/details/[id]/DetailedSpecs";
 import EditButton from "@/app/auctions/details/[id]/EditButton";
 import { getCurrentUser } from "@/app/actions/authActions";
 import DeleteButton from "@/app/auctions/details/[id]/DeleteButton";
+import BidItem from "@/app/auctions/details/[id]/BidItem";
+import BidList from "@/app/auctions/details/[id]/BidList";
 
 type DetailsPageProps = {
   params: Promise<{
@@ -44,9 +46,7 @@ const DetailsAuction = async (
         <div className="relative w-full bg-gray-200 aspect-16/10 rounded-lg overflow-hidden">
           <CarImage imageUrl={data.item.imageUrl} />
         </div>
-        <div className="border-2 rounded-lg p-2 bg-gray-200">
-          <Heading title="Bids" />
-        </div>
+        <BidList user={user} auction={data} />
       </div>
 
       <div className="mt-3 grid grid-cols-1 rounded-lg">
