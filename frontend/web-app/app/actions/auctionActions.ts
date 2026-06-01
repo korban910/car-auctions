@@ -37,6 +37,10 @@ const getBidsForAuction = async (id: string) : Promise<Bid[]> => {
   return fetchWrapper.get(`bids/${id}`);
 }
 
+const placeBidForAuction = async (auctionId: string, amount: number) => {
+  return fetchWrapper.post(`bids`, {auctionId, amount});
+}
+
 export {
   getData,
   updateAuctionTest,
@@ -44,5 +48,6 @@ export {
   getDetailedViewData,
   updateAuction,
   deleteAuction,
-  getBidsForAuction
+  getBidsForAuction,
+  placeBidForAuction
 }
