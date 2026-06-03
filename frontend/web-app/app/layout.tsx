@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/app/nav/NavBar";
 import ToasterProvider from "@/app/providers/ToasterProvider";
+import SignalRProvider from "@/app/providers/SignalRProvider";
 
 export const metadata: Metadata = {
   title: "Car Auctions",
@@ -22,7 +23,9 @@ const RootLayout = ({
         <ToasterProvider />
         <NavBar />
         <main className="container mx-auto px-5 pt-10">
-          {children}
+          <SignalRProvider>
+            {children}
+          </SignalRProvider>
         </main>
       </body>
     </html>

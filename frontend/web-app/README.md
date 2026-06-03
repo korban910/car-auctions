@@ -32,4 +32,5 @@ bun add next-auth@beta
 bun add react-hook-form react-datepicker
 bun add react-hot-toast
 bun add date-fns
+bun add @microsoft/signalr
 ```
