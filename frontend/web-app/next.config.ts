@@ -4,6 +4,7 @@ import withFlowbiteReact from "flowbite-react/plugin/nextjs";
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
+  // allowedDevOrigins: ['10.0.0.88'],
   logging: {
     fetches: {
       fullUrl: true
