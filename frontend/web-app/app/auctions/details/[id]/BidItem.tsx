@@ -48,7 +48,7 @@ const BidItem = (
         ${getBidInfo().bgColor}
       `}>
       <div className='flex flex-col'>
-        <span>Bidder: ${bid.bidder}</span>
+        <span>Bidder: {bid.bidder}</span>
         <span className='text-gray-700 text-sm'>Time: {format(bid.bidTime, "dd MMM yyyy h:mm:ss a")}</span>
       </div>
       <div className='flex flex-col text-right'>

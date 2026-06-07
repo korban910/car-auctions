@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import useBidStore from "@/hooks/useBidStore";
 import { placeBidForAuction } from "@/app/actions/auctionActions";
 import numberWithCommas from "@/app/lib/numberWithComma";
@@ -12,25 +12,35 @@ type BidFormProps = {
   highBid: number;
 }
 
+type BidFormValues = {
+  amount: string;
+}
+
 const BidForm = (
   {
     auctionId,
     highBid,
   } : BidFormProps
 ) => {
-  const { register, handleSubmit, reset} = useForm();
+  const { register, handleSubmit, setValue} = useForm<BidFormValues>({
+    defaultValues: { amount : ''},
+    shouldUnregister: false
+  });
   const addBid = useBidStore(state => state.addBid);
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (data: BidFormValues) => {
+    if (+data.amount <= highBid) {
+      setValue('amount', '', { shouldDirty: false, shouldTouch: false });
+      return toast.error(`Bid must be at least \$${numberWithCommas(highBid + 1)}`);
+    }
     placeBidForAuction(auctionId, +data.amount)
       .then(bid => {
         if (bid.error){
-          reset();
           throw bid.error;
         }
         addBid(bid);
-        reset();
-      }).catch(error => toast.error(error.message));
+      }).catch(error => toast.error(error.message))
+      .finally(() => setValue('amount', '', { shouldDirty: false, shouldTouch: false }));
   }
 
   return (
