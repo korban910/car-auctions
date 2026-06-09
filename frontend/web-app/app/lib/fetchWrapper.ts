@@ -1,44 +1,45 @@
 import { auth } from "@/auth";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl =
+  process.env.NEXT_INTERNAL_BASE_URL ?? process.env.NEXT_PUBLIC_BASE_URL;
 
 const get = async (url: string) => {
   const requestOptions = {
-    method: 'GET',
-    headers: await getHeaders()
+    method: "GET",
+    headers: await getHeaders(),
   };
   const response = await fetch(baseUrl + url, requestOptions);
   return handleResponse(response);
-}
+};
 
 const put = async (url: string, body: unknown) => {
   const requestOptions = {
-    method: 'PUT',
+    method: "PUT",
     headers: await getHeaders(),
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   };
   const response = await fetch(baseUrl + url, requestOptions);
   return handleResponse(response);
-}
+};
 
 const post = async (url: string, body: unknown) => {
   const requestOptions = {
-    method: 'POST',
+    method: "POST",
     headers: await getHeaders(),
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   };
   const response = await fetch(baseUrl + url, requestOptions);
   return handleResponse(response);
-}
+};
 
 const remove = async (url: string) => {
   const requestOptions = {
-    method: 'DELETE',
-    headers: await getHeaders()
+    method: "DELETE",
+    headers: await getHeaders(),
   };
   const response = await fetch(baseUrl + url, requestOptions);
   return handleResponse(response);
-}
+};
 
 const handleResponse = async (response: Response) => {
   const text = await response.text();
@@ -50,32 +51,32 @@ const handleResponse = async (response: Response) => {
     data = text;
   }
 
-  if (response.ok){
+  if (response.ok) {
     return data || response.statusText;
   } else {
     const error = {
       status: response.status,
-      message: typeof data === 'string' ? data : response.statusText,
-    }
-    return {error};
+      message: typeof data === "string" ? data : response.statusText,
+    };
+    return { error };
   }
-}
+};
 
 const getHeaders = async (): Promise<Headers> => {
   const session = await auth();
   const headers = new Headers();
-  headers.set('Content-Type', 'application/json');
-  if (session){
-    headers.set('Authorization', `Bearer ${session.accessToken}`);
+  headers.set("Content-Type", "application/json");
+  if (session) {
+    headers.set("Authorization", `Bearer ${session.accessToken}`);
   }
   return headers;
-}
+};
 
 const fetchWrapper = {
   get,
   post,
   put,
-  remove
-}
+  remove,
+};
 
 export default fetchWrapper;
