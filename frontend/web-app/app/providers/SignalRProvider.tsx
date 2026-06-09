@@ -1,71 +1,87 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from "react";
 import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 import useAuctionStore from "@/hooks/useAuctionStore";
 import useBidStore from "@/hooks/useBidStore";
 import { useParams } from "next/navigation";
-import { User } from "next-auth";
 import AuctionCreatedToast from "@/app/components/AuctionCreatedToast";
 import toast from "react-hot-toast";
 import { getDetailedViewData } from "@/app/actions/auctionActions";
 import AuctionFinishedToast from "@/app/components/AuctionFinishedToast";
+import { useSession } from "next-auth/react";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl =
+  process.env.NEXT_INTERNAL_BASE_URL ?? process.env.NEXT_PUBLIC_BASE_URL;
 
 type SignalRProviderProps = {
-  user: User | null;
   children: React.ReactNode;
-}
+};
 
-const SignalRProvider = (
-  {
-    user,
-    children
-  } : SignalRProviderProps
-) => {
+const SignalRProvider = ({ children }: SignalRProviderProps) => {
+  const session = useSession();
+  const user = session.data?.user;
   const connection = useRef<HubConnection | null>(null);
-  const setCurrentPrice = useAuctionStore(state => state.setCurrentPrice);
-  const addBid = useBidStore(state => state.addBid);
-  const params = useParams<{id:string}>();
+  const setCurrentPrice = useAuctionStore((state) => state.setCurrentPrice);
+  const addBid = useBidStore((state) => state.addBid);
+  const params = useParams<{ id: string }>();
 
-  const handleAuctionCreated = useCallback((auction: Auction) => {
-    if (user?.username !== auction.seller){
-      return toast(<AuctionCreatedToast auction={auction} />, {
-        duration: 10000,
-      });
-    }
-  }, [user?.username]);
+  const handleAuctionCreated = useCallback(
+    (auction: Auction) => {
+      if (user?.username !== auction.seller) {
+        return toast(<AuctionCreatedToast auction={auction} />, {
+          duration: 10000,
+        });
+      }
+    },
+    [user?.username],
+  );
 
-  const handleBidPlaced = useCallback((bid: Bid) => {
-    if (bid.bidStatus.includes('Accepted')){
-      setCurrentPrice(bid.auctionId, bid.amount);
-    }
+  const handleBidPlaced = useCallback(
+    (bid: Bid) => {
+      if (bid.bidStatus.includes("Accepted")) {
+        setCurrentPrice(bid.auctionId, bid.amount);
+      }
 
-    if (params.id === bid.auctionId){
-      addBid(bid)
-    }
-  }, [setCurrentPrice, addBid, params.id]);
+      if (params.id === bid.auctionId) {
+        addBid(bid);
+      }
+    },
+    [setCurrentPrice, addBid, params.id],
+  );
 
-  const handleAuctionFinished = useCallback((finishedAuction: AuctionFinished) => {
-    const auction = getDetailedViewData(finishedAuction.auctionId);
-    return toast.promise(auction, {
-      loading: 'Loading',
-      success: (auction: Auction) => <AuctionFinishedToast finishedAuction={finishedAuction} auction={auction} />,
-      error: () => 'Auction finished'
-    }, {success: { duration: 5000}, icon: null})
-  }, []);
+  const handleAuctionFinished = useCallback(
+    (finishedAuction: AuctionFinished) => {
+      const auction = getDetailedViewData(finishedAuction.auctionId);
+      return toast.promise(
+        auction,
+        {
+          loading: "Loading",
+          success: (auction: Auction) => (
+            <AuctionFinishedToast
+              finishedAuction={finishedAuction}
+              auction={auction}
+            />
+          ),
+          error: () => "Auction finished",
+        },
+        { success: { duration: 5000 }, icon: null },
+      );
+    },
+    [],
+  );
 
   useEffect(() => {
-    if (!connection.current){
+    if (!connection.current) {
       connection.current = new HubConnectionBuilder()
         .withUrl(`${baseUrl}notifications`)
         .withAutomaticReconnect()
         .build();
 
-      connection.current.start()
+      connection.current
+        .start()
         .then(() => console.log("Connected to Hub connection..."))
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
 
     connection.current.on("BidPlaced", handleBidPlaced);
@@ -76,12 +92,10 @@ const SignalRProvider = (
       connection.current?.off("BidPlaced", handleBidPlaced);
       connection.current?.off("AuctionCreated", handleAuctionCreated);
       connection.current?.off("AuctionFinished", handleAuctionFinished);
-    }
-  },[handleBidPlaced, handleAuctionCreated, handleAuctionFinished]);
+    };
+  }, [handleBidPlaced, handleAuctionCreated, handleAuctionFinished]);
 
-  return (
-    children
-  );
+  return children;
 };
 
 export default SignalRProvider;

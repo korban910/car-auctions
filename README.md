@@ -97,6 +97,7 @@ docker compose build auction-svc
 docker compose build search-svc
 docker compose build identity-svc
 docker compose build gateway-svc
+docker compose build web-app
 ```
 
 for removing the containers and clean up volumes:
@@ -120,6 +121,7 @@ docker compose down -v
 ### Useful Commands
 
 for removing all `bin` and `obj` folders in the project, run the following command in the root folder:
+
 ```
 find . -type d -name "bin" -exec rm -rf {} +
 find . -type d -name "obj" -exec rm -rf {} +

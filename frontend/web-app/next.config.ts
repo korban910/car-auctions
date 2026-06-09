@@ -7,19 +7,22 @@ const nextConfig: NextConfig = {
   // allowedDevOrigins: ['10.0.0.88'],
   logging: {
     fetches: {
-      fullUrl: true
-    }
+      fullUrl: true,
+    },
   },
   images: {
     remotePatterns: [
       {
-        protocol: 'https', hostname: 'cdn.pixabay.com'
+        protocol: "https",
+        hostname: "cdn.pixabay.com",
       },
       {
-        protocol: 'https', hostname: 'upload.wikimedia.org'
-      }
-    ]
-  }
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
+    ],
+  },
+  output: "standalone",
 };
 
 export default withFlowbiteReact(nextConfig);

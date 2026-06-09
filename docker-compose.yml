@@ -12,7 +12,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  
+
   mongodb:
     image: mongo
     environment:
@@ -36,7 +36,7 @@ services:
       timeout: 10s
       retries: 5
       start_period: 40s
-  
+
   rabbitmq:
     image: rabbitmq:4-management-alpine
     ports:
@@ -47,7 +47,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  
+
   auction-svc:
     image: korban910/auction-svc:latest
     build:
@@ -73,7 +73,7 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
-  
+
   search-svc:
     image: korban910/search-svc:latest
     build:
@@ -98,7 +98,7 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
-        
+
   bid-svc:
     image: korban910/bid-svc:latest
     build:
@@ -124,7 +124,7 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
-        
+
   notify-svc:
     image: korban910/notify-svc:latest
     build:
@@ -141,7 +141,7 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
-    
+
   identity-svc:
     image: korban910/identity-svc:latest
     build:
@@ -162,7 +162,7 @@ services:
       - NEXT_APP_ID=${NEXT_APP_ID}
       - NEXT_CLIENT_NAME=${NEXT_CLIENT_NAME}
       - NEXT_SECRET=${NEXT_SECRET}
-      - NEXT_REDIRECTURI=${NEXT_REDIRECTURI}
+      - NEXT_REDIRECTURI=${DOCKER_NEXT_REDIRECTURI}
       - CLAIM_USER_NAME=${CLAIM_USER_NAME}
       - ISSUER_URI=${IDENTITY_URL}
       - ASPNETCORE_DOCKER_ENVIRONMENT=${ASPNETCORE_DOCKER_ENVIRONMENT}
@@ -171,7 +171,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      
+
   gateway-svc:
     image: korban910/gateway-svc:latest
     build:
@@ -205,7 +205,32 @@ services:
       - CLIENT_APP=${CLIENT_APP}
     ports:
       - "6001:80"
-    
+
+  web-app:
+    image: korban910/web-app:latest
+    build:
+      context: .
+      dockerfile: frontend/web-app/Dockerfile
+      args:
+        - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+        - NEXT_PUBLIC_AUTH_DUENDE_IDENTITY_SERVER6_ID=${NEXT_PUBLIC_AUTH_DUENDE_IDENTITY_SERVER6_ID}
+    volumes:
+      - /var/lib/web/data
+    ports:
+      - 3000:3000
+    environment:
+      - AUTH_SECRET=${AUTH_SECRET}
+      - NEXT_PUBLIC_AUTH_DUENDE_IDENTITY_SERVER6_ID=${NEXT_PUBLIC_AUTH_DUENDE_IDENTITY_SERVER6_ID}
+      - AUTH_DUENDE_IDENTITY_SERVER6_CLIENT_ID=${AUTH_DUENDE_IDENTITY_SERVER6_CLIENT_ID}
+      - AUTH_DUENDE_IDENTITY_SERVER6_SECRET=${AUTH_DUENDE_IDENTITY_SERVER6_SECRET}
+      - AUTH_DUENDE_IDENTITY_SERVER6_ISSUER=${AUTH_DUENDE_IDENTITY_SERVER6_ISSUER}
+      - AUTH_DUENDE_IDENTITY_SERVER6_SCOPE=${AUTH_DUENDE_IDENTITY_SERVER6_SCOPE}
+      - AUTH_DUENDE_IDENTITY_SERVER6_ISSUER_INTERNAL=${AUTH_DUENDE_IDENTITY_SERVER6_ISSUER_INTERNAL}
+      - NEXT_INTERNAL_BASE_URL=${NEXT_INTERNAL_BASE_URL}
+      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+      - AUTH_URL=${AUTH_URL}
+      - AUTH_URL_INTERNAL=${AUTH_URL_INTERNAL}
+
 volumes:
   pgdata:
   mongodata:
