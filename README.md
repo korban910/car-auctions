@@ -126,3 +126,21 @@ for removing all `bin` and `obj` folders in the project, run the following comma
 find . -type d -name "bin" -exec rm -rf {} +
 find . -type d -name "obj" -exec rm -rf {} +
 ```
+
+### Docker Run
+
+For `docker-compose.yml`:
+
+```
+docker compose build docker-compose.yml --no-catch --pull
+docker compose up -d
+docker compose down -v
+```
+
+For `docker-compose.local.yml`:
+
+```
+docker compose -f docker-compose.local.yml build --no-catch --pull
+docker compose -f docker-compose.local.yml up -d
+docker compose -f docker-compose.yml down -v
+```
