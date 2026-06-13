@@ -30,6 +30,8 @@ dotnet new install Duende.Templates
 
 [Docker](./DOCKER.md)
 
+[Kubernetes](./K8S.md)
+
 ### Add Projects into Solution
 
 inside the `root` folder:

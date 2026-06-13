@@ -3,6 +3,7 @@ using BiddingService.Mapping;
 using BiddingService.services;
 using MongoDB.Driver;
 using MongoDB.Entities;
+using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await DB.InitAsync(Environment.GetEnvironmentVariable("BIDDING_DATABASE_NAME")!, 
-    MongoClientSettings.FromConnectionString(Environment.GetEnvironmentVariable("BIDDING_DATABASE")!));
+await Policy.Handle<TimeoutException>()
+    .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(5))
+    .ExecuteAndCaptureAsync(async () =>
+    {
+        await DB.InitAsync(Environment.GetEnvironmentVariable("BIDDING_DATABASE_NAME")!, 
+            MongoClientSettings.FromConnectionString(Environment.GetEnvironmentVariable("BIDDING_DATABASE")!));
+    });
 
 app.Run();
