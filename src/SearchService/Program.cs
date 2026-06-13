@@ -1,3 +1,4 @@
+using Polly;
 using Scalar.AspNetCore;
 using SearchService.Common.Seeds;
 using SearchService.Common.Services;
@@ -37,14 +38,9 @@ if (!app.Environment.IsEnvironment(Environment.GetEnvironmentVariable("TESTING")
 {
     app.Lifetime.ApplicationStarted.Register(async void () =>
     {
-        try
-        {
-            await app.InitDb();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-        }
+        await Policy.Handle<TimeoutException>()
+            .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(5))
+            .ExecuteAndCaptureAsync(async () => await app.InitDb());
     });
 
 }

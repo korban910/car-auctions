@@ -50,7 +50,6 @@ services:
       retries: 5
 
   auction-svc:
-    image: korban910/auction-svc:latest
     build:
       context: .
       dockerfile: src/AuctionService/Dockerfile
@@ -76,7 +75,6 @@ services:
         condition: service_healthy
 
   search-svc:
-    image: korban910/search-svc:latest
     build:
       context: .
       dockerfile: src/SearchService/Dockerfile
@@ -101,7 +99,6 @@ services:
         condition: service_healthy
 
   bid-svc:
-    image: korban910/bid-svc:latest
     build:
       context: .
       dockerfile: src/BiddingService/Dockerfile
@@ -127,7 +124,6 @@ services:
         condition: service_healthy
 
   notify-svc:
-    image: korban910/notify-svc:latest
     build:
       context: .
       dockerfile: src/NotificationService/Dockerfile
@@ -144,7 +140,6 @@ services:
         condition: service_healthy
 
   identity-svc:
-    image: korban910/identity-svc:latest
     build:
       context: .
       dockerfile: src/IdentityService/Dockerfile
@@ -174,7 +169,6 @@ services:
         condition: service_healthy
 
   gateway-svc:
-    image: korban910/gateway-svc:latest
     build:
       context: .
       dockerfile: src/GatewayService/Dockerfile
@@ -208,7 +202,6 @@ services:
       - 6001:80
 
   web-app:
-    image: korban910/web-app:latest
     build:
       context: .
       dockerfile: frontend/web-app/Dockerfile

@@ -16,6 +16,7 @@
     <PackageReference Include="Grpc.Tools" />
     <PackageReference Include="Grpc.Net.Client" />
     <PackageReference Include="Google.Protobuf" />
+    <PackageReference Include="Polly" />
   </ItemGroup>
 
   <ItemGroup>

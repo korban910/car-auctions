@@ -2,6 +2,8 @@ using AuctionService.Common.Seeds;
 using AuctionService.Context;
 using AuctionService.Mapping;
 using AuctionService.Services;
+using Npgsql;
+using Polly;
 using Scalar.AspNetCore; 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,15 +36,12 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGrpcService<GrpcAuctionService>();
 
+var retryPolicy = Policy
+    .Handle<NpgsqlException>()
+    .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(5));
+
 if (!app.Environment.IsEnvironment(Environment.GetEnvironmentVariable("INTEGRATION_TEST")!))
 {
-    try
-    {
-        app.InitDb();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex);
-    }
+    retryPolicy.ExecuteAndCapture(() => DbInitializer.InitDb(app));
 }
 app.Run();
