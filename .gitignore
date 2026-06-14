@@ -407,9 +407,10 @@ FodyWeavers.xsd
 .idea/
 
 ##
-## Visual studio for Mac
+## Certs
 ##
-
+devcerts/car-auctions.local.crt
+devcerts/car-auctions.local.key
 
 # globs
 Makefile.in
