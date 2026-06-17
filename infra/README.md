@@ -1,5 +1,7 @@
 # K8S
 
+[LocalHost issues](./LOCALHOST.md)
+
 [← Back to Kubernetes](../K8S.md)
 
 ### Minikube
@@ -44,9 +46,11 @@ kubectl get pvc
 
 In above `<NAME>` would be from results of `kubectl get pods`.
 
-### IP issues
+### IP URL
 
 ```
 minikube service postgres-np --url
+minikube service rabbit-np --url
+minikube service mongo-np --url
 ```
-Above output `http://127.0.0.1:38045` and `30001` would need to change it `38045`.
+Above sample output `http://127.0.0.1:<PORT_NUMBER>`, instead of `nodePort`, `<PORT_NUMBER>` could be used. Alternative to `port-forward`.
