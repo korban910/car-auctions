@@ -9,7 +9,7 @@
 ### Minikube
 ```
 minikube start --ports=30001:30001,30002:30002,30003:30003
-minikube dashboard
+minikube dashboard &
 ```
 
 ### Create
@@ -20,11 +20,15 @@ kubectl apply -f local-pvc.yml
 kubectl apply -f postgres-depl.yml
 kubectl apply -f rabbit-depl.yml
 kubectl apply -f mongo-depl.yml
-kubectl apply -f config.yml
+set -a; . ./.env; set +a 
+envsubst < config.yml | kubectl apply -f - 
 kubectl apply -f auction-depl.yml 
+kubectl apply -f search-depl.yml
+kubectl apply -f bid-depl.yml 
+kubectl apply -f notify-depl.yml
 ```
 
-Running `config.yml`:
+Running after modify `config.yml` or `.env`:
 ```
 set -a; . ./.env; set +a          # ← loads .env (what you asked for)
 envsubst < config.yml | kubectl apply -f -   # ← this replaces "kubectl apply -f config.yml"
@@ -34,6 +38,9 @@ envsubst < config.yml | kubectl apply -f -   # ← this replaces "kubectl apply 
 
 ```
 kubectl rollout restart deployment auction-svc
+kubectl rollout restart deployment search-svc
+kubectl rollout restart deployment bid-svc
+kubectl rollout restart deployment notify-svc
 ```
 
 ### Forward 
