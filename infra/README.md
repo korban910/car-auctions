@@ -2,11 +2,13 @@
 
 [LocalHost issues](./LOCALHOST.md)
 
+[Docker Hub](./DOCKERHUB.md)
+
 [← Back to Kubernetes](../K8S.md)
 
 ### Minikube
 ```
-minikube start
+minikube start --ports=30001:30001,30002:30002,30003:30003
 minikube dashboard
 ```
 
@@ -16,9 +18,27 @@ Inside the `infra/K8S`:
 ```
 kubectl apply -f local-pvc.yml
 kubectl apply -f postgres-depl.yml
+kubectl apply -f rabbit-depl.yml
+kubectl apply -f mongo-depl.yml
+kubectl apply -f config.yml
+kubectl apply -f auction-depl.yml 
 ```
 
-### Forward
+Running `config.yml`:
+```
+set -a; . ./.env; set +a          # ← loads .env (what you asked for)
+envsubst < config.yml | kubectl apply -f -   # ← this replaces "kubectl apply -f config.yml"
+```
+
+### Restart
+
+```
+kubectl rollout restart deployment auction-svc
+```
+
+### Forward 
+
+If `minikube start --ports` still does NOT work, run below:
 
 ```
 kubectl port-forward svc/postgres-np 30001:5432 &
@@ -31,6 +51,8 @@ kubectl port-forward svc/mongo-np 30003:27017 &
 Inside the `infra/K8S`:
 ```
 kubectl delete -f postgres-depl.yml
+kubectl delete -f rabbit-depl.yml
+kubectl delete -f mongo-depl.yml
 kubectl delete -f local-pvc.yml
 ```
 
@@ -54,3 +76,12 @@ minikube service rabbit-np --url
 minikube service mongo-np --url
 ```
 Above sample output `http://127.0.0.1:<PORT_NUMBER>`, instead of `nodePort`, `<PORT_NUMBER>` could be used. Alternative to `port-forward`.
+
+### Claude
+
+```
+minikube config set kubernetes-version v1.35.1
+minikube delete && minikube start --kubernetes-version=v1.35.1 --ports=30001:30001,30002:30002,30003:30003
+```
+
+Above `config set` sets the version.
