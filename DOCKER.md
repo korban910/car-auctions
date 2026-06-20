@@ -56,7 +56,7 @@ docker compose down -v
 For `docker-compose.yml`:
 
 ```
-docker compose build docker-compose.yml --no-catch --pull
+docker compose build --no-cache --pull
 docker compose up -d
 docker compose down -v
 ```
@@ -64,11 +64,11 @@ docker compose down -v
 For `docker-compose.local.yml`:
 
 ```
-docker compose -f docker-compose.local.yml build --no-catch --pull
+docker compose -f docker-compose.local.yml build --no-cache --pull
 docker compose -f docker-compose.local.yml up -d
 docker compose -f docker-compose.yml down -v
 ```
 
-### SSL (ONLY for NOT LOCAL)
+### SSL (docker-compose.yml)
 
 [mkcert](./devcerts/README.md)

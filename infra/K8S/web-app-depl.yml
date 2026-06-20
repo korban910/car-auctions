@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app-svc
+spec:
+  selector:
+    matchLabels:
+      app: web-app-svc
+  template:
+    metadata:
+      labels:
+        app: web-app-svc
+    spec:
+      containers:
+        - name: web-app-svc
+          image: korban910/web-app
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: web-app-svc-config
+          ports:
+          - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app-clusterip
+spec:
+  selector:
+    app: web-app-svc
+  ports:
+  - port: 3000
+    targetPort: 3000
+  type: ClusterIP
+  
