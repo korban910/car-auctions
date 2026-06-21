@@ -4,16 +4,25 @@
 
 [Docker Hub](./DOCKERHUB.md)
 
+[Certification](./devcerts/README.md)
+
 [← Back to Kubernetes](../K8S.md)
 
 ### Minikube
 
 ```
 minikube start -p car-auctions --ports=30001:30001,30002:30002,30003:30003
+minikube addons enable ingress -p car-auctions
 minikube dashboard -p car-auctions &
 ```
 
 ### Create
+
+Inside the `infra/ingress`:
+
+```
+kubectl apply -f ingress-depl.yml
+```
 
 Inside the `infra/K8S`:
 
@@ -31,6 +40,7 @@ kubectl apply -f notify-depl.yml
 kubectl apply -f gateway-depl.yml
 kubectl apply -f identity-depl.yml
 kubectl apply -f web-app-depl.yml
+kubectl apply -f ingress-svc.yml 
 ```
 
 Running after modify `config.yml` or `.env`:
@@ -39,6 +49,14 @@ Running after modify `config.yml` or `.env`:
 set -a; . ./.env; set +a          # ← loads .env (what you asked for)
 envsubst < config.yml | kubectl apply -f -   # ← this replaces "kubectl apply -f config.yml"
 ```
+
+### IMPORTAT
+
+Run following if `minikube` is used
+```
+!minikube tunnel -p car-auctions
+```
+Then enter `admin` password.
 
 ### Restart
 
@@ -49,6 +67,7 @@ kubectl rollout restart deployment bid-svc
 kubectl rollout restart deployment notify-svc
 kubectl rollout restart deployment gateway-svc
 kubectl rollout restart deployment identity-svc
+kubectl rollout restart deployment web-app-svc
 ```
 
 ### Forward
@@ -75,7 +94,8 @@ kubectl delete -f search-depl.yml
 kubectl delete -f bid-depl.yml
 kubectl delete -f notify-depl.yml
 kubectl delete -f gateway-depl.yml
-kebectl delete -f identity-depl.yml
+kubectl delete -f identity-depl.yml
+kubectl delete -f web-app-depl.yml
 ```
 
 ### Useful commands
@@ -99,6 +119,13 @@ minikube service mongo-np --url -p car-auctions
 ```
 
 Above sample output `http://127.0.0.1:<PORT_NUMBER>`, instead of `nodePort`, `<PORT_NUMBER>` could be used. Alternative to `port-forward`.
+
+### Namespaces
+
+```
+kubectl get namespaces
+kubectl get services -n ingress-nginx
+```
 
 ### Claude
 

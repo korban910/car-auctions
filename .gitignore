@@ -411,6 +411,8 @@ FodyWeavers.xsd
 ##
 devcerts/car-auctions.local.crt
 devcerts/car-auctions.local.key
+infra/devcerts/server.crt
+infra/devcerts/server.key
 
 # globs
 Makefile.in
