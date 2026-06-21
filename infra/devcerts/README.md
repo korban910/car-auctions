@@ -9,7 +9,7 @@ mkcert -install
 ```
 
 Use `sudo vi /etc/hosts`:
-![Hosts](../images/hosts.png)
+![Hosts](../../images/hosts.png)
 
 Inside `devcerts` folder:
 
