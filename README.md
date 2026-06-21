@@ -1,87 +1,35 @@
 # car-auctions
 
-### Create Project
+[About Project](./PROJECT.md)
 
-inside the `root` folder:
+This is the repository for `Car Auctions` written in back-end .NET 10 and Front-end Nextjs 16.
 
-```
-dotnet new sln
-dotnet new gitignore
-dotnet new install Duende.Templates
-```
+You can run this app locally by following these instructions:
 
-### ClassLib
-
-[Contacts](src/Contracts/README.md)
-
-### Microservices
-
-[Auction Service Details](src/AuctionService/README.md)
-
-[Search Service Details](src/SearchService/README.md)
-
-[Identity Service Details](src/IdentityService/README.md)
-
-[Gateway Service Details](src/GatewayService/README.md)
-
-[Bid Service Details](src/BiddingService/README.md)
-
-[Notification Service Details](src/NotificationService/README.md)
-
-### Services
-
-[Certification](devcerts/README.md)
-
-[Docker](./DOCKER.md)
-
-[Kubernetes](./K8S.md)
-
-### Add Projects into Solution
-
-inside the `root` folder:
+1. clone the repo
 
 ```
-dotnet sln add src/AuctionService
-dotnet sln add src/SearchService
-dotnet sln add src/Contracts
-dotnet sln add src/IdentityService
-dotnet sln add src/GatewayService
-dotnet sln add src/BiddingService
-dotnet sln add src/NotificationService
+git clone git@github.com:korban910/car-auctions.git
 ```
 
-### Mise (Optional but recommended)
-
-install mise from [mise](https://mise.jdx.dev/)
-
-inside the `root` folder:
+2. Change into the `car-auctions` directory
 
 ```
-touch .mise.toml
+cd car-cities
 ```
 
-content of `.mise.toml`:
+3. Ensure you have Docker installed. For details click [here](https://docs.docker.com/desktop/).
+
+4. Build the services locally (NOTE: this may take some time)
 
 ```
-[env._]
-file = ".env"
+docker compose -f docker-compose.local.yml build
 ```
 
-### Linux resource wall
+5. For SSL cerficiate, please follow [CERTIFICATE](./devcerts/README.md).
+
+6. Run the services:
 
 ```
-sudo sysctl fs.inotify.max_user_instances=512
-```
-
-### Tests
-
-[Test Details](tests/README.md)
-
-### Useful Commands
-
-for removing all `bin` and `obj` folders in the project, run the following command in the root folder:
-
-```
-find . -type d -name "bin" -exec rm -rf {} +
-find . -type d -name "obj" -exec rm -rf {} +
+docker compose -f docker-compose.local.yml up -d
 ```
