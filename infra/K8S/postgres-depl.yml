@@ -16,7 +16,10 @@ spec:
         image: postgres
         env:
           - name: POSTGRES_PASSWORD
-            value: postgrespw
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: password
         ports:
         - containerPort: 5432
         volumeMounts:
@@ -48,8 +51,8 @@ spec:
   selector:
     app: postgres # CONTAINER NAME
   ports:
-    #- protocol: TCP
-    - port: 5432
+    - protocol: TCP
+      port: 5432
       targetPort: 5432
       nodePort: 30001
   type: NodePort # LoadBalancer

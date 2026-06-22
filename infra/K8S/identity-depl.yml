@@ -15,6 +15,12 @@ spec:
         - name: identity-svc
           image: korban910/identity-svc
           imagePullPolicy: IfNotPresent
+          env:
+            - name: IDENTITY_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: identity-secret
+                  key: connString
           envFrom:
             - configMapRef:
                 name: identity-svc-config

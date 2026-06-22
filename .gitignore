@@ -413,6 +413,7 @@ devcerts/car-auctions.local.crt
 devcerts/car-auctions.local.key
 infra/devcerts/server.crt
 infra/devcerts/server.key
+details-secret
 
 # globs
 Makefile.in
