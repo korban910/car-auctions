@@ -15,6 +15,22 @@ spec:
         - name: auction-svc
           image: korban910/auction-svc
           imagePullPolicy: IfNotPresent
+          env:
+            - name: AUCTION_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: auction-secret
+                  key: connString
+            - name: RABBITMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rabbit-secret
+                  key: username
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbit-secret
+                  key: password
           envFrom:
             - configMapRef:
                 name: auction-svc-config

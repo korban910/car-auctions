@@ -15,6 +15,12 @@ spec:
         - name: web-app-svc
           image: korban910/web-app
           imagePullPolicy: IfNotPresent
+          env:
+            - name: AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: web-app-secret
+                  key: authSecret
           envFrom:
             - configMapRef:
                 name: web-app-svc-config

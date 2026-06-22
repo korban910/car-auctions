@@ -6,6 +6,8 @@
 
 [Certification](./devcerts/README.md)
 
+[Kubernetes Secret](./dev-k8s/README.md)
+
 [← Back to Kubernetes](../K8S.md)
 
 ### Minikube
@@ -14,9 +16,15 @@
 minikube start -p car-auctions --ports=30001:30001,30002:30002,30003:30003
 minikube addons enable ingress -p car-auctions
 minikube dashboard -p car-auctions &
+minikube -p car-auctions addons enable metrics-server
 ```
 
 ### Create
+
+If not run `dev-secrets.yml`, inside the `infra/dev-k8s`:
+```
+kubectl apply -f dev-secrets.yml
+```
 
 Inside the `infra/ingress`:
 
@@ -27,12 +35,12 @@ kubectl apply -f ingress-depl.yml
 Inside the `infra/K8S`:
 
 ```
+set -a; . ./.env; set +a
+envsubst < config.yml | kubectl apply -f -
 kubectl apply -f local-pvc.yml
 kubectl apply -f postgres-depl.yml
 kubectl apply -f rabbit-depl.yml
 kubectl apply -f mongo-depl.yml
-set -a; . ./.env; set +a
-envsubst < config.yml | kubectl apply -f -
 kubectl apply -f auction-depl.yml
 kubectl apply -f search-depl.yml
 kubectl apply -f bid-depl.yml
@@ -41,6 +49,19 @@ kubectl apply -f gateway-depl.yml
 kubectl apply -f identity-depl.yml
 kubectl apply -f web-app-depl.yml
 kubectl apply -f ingress-svc.yml 
+```
+
+Alternatively, first inside `infra/K8S`:
+
+```
+set -a; . ./.env; set +a
+envsubst < config.yml | kubectl apply -f -
+```
+
+Then in `infra`:
+
+```
+kubectl apply -f K8S/
 ```
 
 Running after modify `config.yml` or `.env`:
@@ -96,6 +117,13 @@ kubectl delete -f notify-depl.yml
 kubectl delete -f gateway-depl.yml
 kubectl delete -f identity-depl.yml
 kubectl delete -f web-app-depl.yml
+```
+
+Alternatively:
+
+In `infra` folder:
+```
+kubectl delete -f K8S/
 ```
 
 ### Useful commands

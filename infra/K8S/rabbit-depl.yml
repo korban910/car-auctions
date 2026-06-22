@@ -16,9 +16,15 @@ spec:
         image: rabbitmq:4-management-alpine
         env:
           - name: RABBITMQ_DEFAULT_USER
-            value: rabbit
+            valueFrom:
+              secretKeyRef:
+                name: rabbit-secret
+                key: username
           - name: RABBITMQ_DEFAULT_PASS
-            value: rabbitpw
+            valueFrom:
+              secretKeyRef:
+                name: rabbit-secret
+                key: password
         ports:
         - containerPort: 15672
           name: rbmq-mgmt-port
@@ -52,7 +58,8 @@ spec:
   selector:
     app: rabbitmq
   ports:
-  - port: 15672
+  - protocol: TCP
+    port: 15672
     targetPort: 15672
     nodePort: 30002
   type: NodePort # LoadBalancer
