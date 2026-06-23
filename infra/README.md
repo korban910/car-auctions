@@ -71,11 +71,11 @@ set -a; . ./.env; set +a          # ← loads .env (what you asked for)
 envsubst < config.yml | kubectl apply -f -   # ← this replaces "kubectl apply -f config.yml"
 ```
 
-### IMPORTAT
+### IMPORTAT (minikube do NOT skip)
 
 Run following if `minikube` is used
 ```
-!minikube tunnel -p car-auctions
+minikube tunnel -p car-auctions
 ```
 Then enter `admin` password.
 

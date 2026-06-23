@@ -87,3 +87,7 @@ for removing all `bin` and `obj` folders in the project, run the following comma
 find . -type d -name "bin" -exec rm -rf {} +
 find . -type d -name "obj" -exec rm -rf {} +
 ```
+
+### GitHub Actions
+
+[GitHub Action](./GITHUBACTION.md)
