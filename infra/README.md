@@ -8,6 +8,8 @@
 
 [Kubernetes Secret](./dev-k8s/README.md)
 
+[Digital Oceans](./digital-ocean/README.md)
+
 [← Back to Kubernetes](../K8S.md)
 
 ### Minikube
@@ -22,6 +24,7 @@ minikube -p car-auctions addons enable metrics-server
 ### Create
 
 If not run `dev-secrets.yml`, inside the `infra/dev-k8s`:
+
 ```
 kubectl apply -f dev-secrets.yml
 ```
@@ -48,7 +51,7 @@ kubectl apply -f notify-depl.yml
 kubectl apply -f gateway-depl.yml
 kubectl apply -f identity-depl.yml
 kubectl apply -f web-app-depl.yml
-kubectl apply -f ingress-svc.yml 
+kubectl apply -f ingress-svc.yml
 ```
 
 Alternatively, first inside `infra/K8S`:
@@ -74,9 +77,11 @@ envsubst < config.yml | kubectl apply -f -   # ← this replaces "kubectl apply 
 ### IMPORTAT (minikube do NOT skip)
 
 Run following if `minikube` is used
+
 ```
 minikube tunnel -p car-auctions
 ```
+
 Then enter `admin` password.
 
 ### Restart
@@ -122,6 +127,7 @@ kubectl delete -f web-app-depl.yml
 Alternatively:
 
 In `infra` folder:
+
 ```
 kubectl delete -f K8S/
 ```
