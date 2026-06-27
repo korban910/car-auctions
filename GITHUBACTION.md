@@ -4,7 +4,7 @@
 
 ### Actions
 
-In the `root` folder create `.github` folder. Then inside `.github` folder, create `workflows`. Inside the `workflows` folder create `deploy.yml` file. 
+In the `root` folder create `.github` folder. Then inside `.github` folder, create `workflows` folder. Inside the `workflows` folder create `deploy.yml` file. 
 
 deploy.yml:
 ```

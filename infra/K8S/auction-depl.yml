@@ -13,8 +13,7 @@ spec:
     spec:
       containers:
         - name: auction-svc
-          image: korban910/auction-svc
-          imagePullPolicy: IfNotPresent
+          image: korban910/auction-svc:latest
           env:
             - name: AUCTION_DATABASE
               valueFrom:
@@ -35,10 +34,10 @@ spec:
             - configMapRef:
                 name: auction-svc-config
           ports:
-          - containerPort: 80
-            name: web
-          - containerPort: 7777
-            name: grpc
+            - containerPort: 80
+              name: web
+            - containerPort: 7777
+              name: grpc
 ---
 apiVersion: v1
 kind: Service
@@ -48,11 +47,10 @@ spec:
   selector:
     app: auction-svc
   ports:
-  - port: 80
-    targetPort: 80
-    name: web
-  - port: 7777
-    targetPort: 7777
-    name: grpc
+    - port: 80
+      targetPort: 80
+      name: web
+    - port: 7777
+      targetPort: 7777
+      name: grpc
   type: ClusterIP
-  
