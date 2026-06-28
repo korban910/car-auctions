@@ -5,5 +5,6 @@
 ### Deploy
 
 ```
-kubectl apply -f dev-secrets.yml
+kubectl apply -f=dev-secrets.yml
+kubectl apply -f=ingress.yml
 ```

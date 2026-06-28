@@ -57,3 +57,32 @@ doctl kubernetes cluster kubeconfig save <random-guid>
 ```
 
 Then run `kubectl config get-contexts` to verify the kubeconfig is set up correctly. Switch between contexts using `kubectl config use-context <context-name>`.
+
+### Deployments (PROD)
+
+Make sure in the **digital ocean cluster**, then in `infra/prod-k8s` folder:
+
+```
+kubectl apply -f prod-secrets.yml
+```
+
+In `infra/ingress` folder, apply **LoadBalancer** for **digital ocean**:
+```
+kubectl apply -f ingress-do-deply.yml
+```
+
+Verify `namespaces` and `services`:
+
+```
+kubectl get namespaces
+kubectl get services -n <NAMESPACE>
+```
+
+### Troubleshooting
+
+```
+kubectl get pods
+kubectl describe pod <PODS_NAME>
+kubectl logs <PODS_NAME>
+kubectl rollout restart deployment <DEPLOYMENT_NAME>
+```
