@@ -51,7 +51,6 @@ kubectl apply -f notify-depl.yml
 kubectl apply -f gateway-depl.yml
 kubectl apply -f identity-depl.yml
 kubectl apply -f web-app-depl.yml
-kubectl apply -f ingress-svc.yml
 ```
 
 Alternatively, first inside `infra/K8S`:

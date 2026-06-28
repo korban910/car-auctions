@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-svc
+  labels:
+    name: ingress-svc
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - app.car-auctions.local
+        - api.car-auctions.local
+        - id.car-auctions.local
+      secretName: car-auctions-app-tls
+  rules:
+    - host: app.car-auctions.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web-app-clusterip
+                port:
+                  number: 3000
+    - host: api.car-auctions.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway-clusterip
+                port:
+                  number: 80
+    - host: id.car-auctions.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: identity-clusterip
+                port:
+                  number: 80
+                  

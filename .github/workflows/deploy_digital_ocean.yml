@@ -2,8 +2,10 @@ name: Build and publish
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["main"]
+  # Below is comment out for GITHUB action
+  # When digital ocean is set up use it
+  # push:
+  #  branches: [ "main" ]
 
 jobs:
   build-and-push:

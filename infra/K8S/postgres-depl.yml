@@ -23,7 +23,7 @@ spec:
         ports:
         - containerPort: 5432
         volumeMounts:
-          - mountPath: /var/lib/postgresql
+          - mountPath: /var/lib/postgresql # If does not work for digital ocean, change to /var/data/postgres
             name: postgresdata
       volumes:
         - name: postgresdata
