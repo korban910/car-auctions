@@ -2,18 +2,20 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-svc
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod" #"letsencrypt-staging"
   labels:
     name: ingress-svc
 spec:
   ingressClassName: nginx
   tls:
-    - hosts:
-        - app.car-auctions.local
-        - api.car-auctions.local
-        - id.car-auctions.local
-      secretName: car-auctions-app-tls
+  - hosts:
+      - app.car-auctions.store
+      - api.car-auctions.store
+      - id.car-auctions.store
+    secretName: car-auctions-tls
   rules:
-    - host: app.car-auctions.local
+    - host: app.car-auctions.store
       http:
         paths:
           - path: /
@@ -23,7 +25,7 @@ spec:
                 name: web-app-clusterip
                 port:
                   number: 3000
-    - host: api.car-auctions.local
+    - host: api.car-auctions.store
       http:
         paths:
           - path: /
@@ -33,7 +35,7 @@ spec:
                 name: gateway-clusterip
                 port:
                   number: 80
-    - host: id.car-auctions.local
+    - host: id.car-auctions.store
       http:
         paths:
           - path: /

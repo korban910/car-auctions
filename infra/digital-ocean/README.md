@@ -1,7 +1,5 @@
 # Digital Ocean
 
-[← Back to K8S](./K8S.md)
-
 ### Digital Ocean
 
 Go to [Digital Ocean](https://www.digitalocean.com/) and create an account. Select "Kubernetes" from Pricing then Compute in the menu. In addition, need select Load Balances from Pricing then Networking. Minimum $24/month in total.

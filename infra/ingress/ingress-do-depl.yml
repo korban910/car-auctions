@@ -335,6 +335,10 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
+  # If SSL is the problem, un-comment this part
+  #annotations:
+  #  service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
+  #  service.beta.kubernetes.io/do-loadbalance-hostname: "workaround.car-auctions.store"
   labels:
     app.kubernetes.io/component: controller
     app.kubernetes.io/instance: ingress-nginx
